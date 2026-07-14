@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -68,7 +67,7 @@
         }
         .wave-bar {
             width: 3px;
-            background-color: #ef4444;
+            background-color: #10B981;
             border-radius: 9999px;
             animation: audioWave 1.2s ease-in-out infinite;
         }
@@ -83,15 +82,15 @@
         }
     </style>
 </head>
-<body class="bg-slate-900/10 h-screen flex items-center justify-center font-sans antialiased p-0 sm:p-4 transition-colors duration-500">
+<body class="bg-slate-900 h-screen flex items-center justify-center font-sans antialiased p-0 sm:p-4 transition-colors duration-500">
 
-    <div id="login-container" class="w-full h-full max-w-md bg-white rounded-none sm:rounded-[32px] shadow-2xl border border-slate-100 flex flex-col p-8 justify-center relative hidden transition-all duration-300">
+    <div id="login-container" class="w-full h-full max-w-md bg-white rounded-none sm:rounded-[32px] shadow-2xl border border-slate-100 flex flex-col p-8 justify-center relative transition-all duration-300">
         <div class="text-center mb-8">
             <div class="w-16 h-16 bg-brand-50 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm">
                 <i class="fa-solid fa-shield-halved text-brand-500 text-3xl animate-pulse"></i>
             </div>
             <h2 class="text-2xl font-black text-slate-800 tracking-tight">Chat Mobile Pro</h2>
-            <p class="text-xs text-slate-400 mt-2 font-medium">Insira suas credenciais para acessar o painel de mensagens.</p>
+            <p class="text-xs text-slate-400 mt-2 font-medium">Insira qualquer credencial para acessar o painel de demonstração.</p>
         </div>
 
         <div class="space-y-4">
@@ -99,7 +98,7 @@
                 <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">E-mail Corporativo</label>
                 <div class="relative flex items-center">
                     <i class="fa-regular fa-envelope absolute left-4 text-slate-400 text-sm"></i>
-                    <input type="email" id="loginEmail" placeholder="exemplo@email.com" autocomplete="email" class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-2xl py-3.5 pl-11 pr-4 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition-all">
+                    <input type="email" id="loginEmail" value="demo@empresa.com" placeholder="exemplo@email.com" class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-2xl py-3.5 pl-11 pr-4 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition-all">
                 </div>
             </div>
 
@@ -107,11 +106,11 @@
                 <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">Senha Secreta</label>
                 <div class="relative flex items-center">
                     <i class="fa-solid fa-lock absolute left-4 text-slate-400 text-sm"></i>
-                    <input type="password" id="loginPassword" placeholder="••••••••" class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-2xl py-3.5 pl-11 pr-4 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition-all">
+                    <input type="password" id="loginPassword" value="123456" placeholder="••••••••" class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-2xl py-3.5 pl-11 pr-4 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition-all">
                 </div>
             </div>
 
-            <button id="enterChatBtn" class="w-full py-4 bg-brand-500 hover:bg-brand-600 text-white rounded-2xl font-bold shadow-lg shadow-brand-500/20 transition-all transform active:scale-[0.98] hover:shadow-brand-500/30 mt-2 flex items-center justify-center gap-2">
+            <button id="enterChatBtn" onclick="login()" class="w-full py-4 bg-brand-500 hover:bg-brand-600 text-white rounded-2xl font-bold shadow-lg shadow-brand-500/20 transition-all transform active:scale-[0.98] hover:shadow-brand-500/30 mt-2 flex items-center justify-center gap-2">
                 <span>Entrar no Chat</span>
                 <i class="fa-solid fa-arrow-right text-xs"></i>
             </button>
@@ -124,32 +123,25 @@
         <div id="call-modal" class="absolute inset-0 bg-slate-950/95 backdrop-blur-md z-50 flex flex-col items-center justify-between p-12 text-white hidden transition-all duration-300">
             <div class="text-center">
                 <span id="call-type-label" class="text-xs text-brand-500 uppercase tracking-widest font-bold">Chamada de voz</span>
-                <h2 id="call-contact-name" class="text-3xl font-black mt-2 tracking-tight">Nome do Contato</h2>
+                <h2 id="call-contact-name" class="text-3xl font-black mt-2 tracking-tight">Ana Silva</h2>
                 <p id="call-status" class="text-sm text-slate-400 font-semibold mt-1">Chamando...</p>
             </div>
 
             <div class="relative w-56 h-56 flex items-center justify-center">
                 <div id="voice-pulse" class="absolute inset-0 bg-brand-500/20 rounded-full animate-pulse-glow"></div>
-                <img id="call-contact-photo" src="" class="w-44 h-44 rounded-full object-cover border-4 border-slate-800 relative z-10 transition-all duration-500 shadow-2xl" alt="">
+                <img id="call-contact-photo" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150" class="w-44 h-44 rounded-full object-cover border-4 border-slate-800 relative z-10 transition-all duration-500 shadow-2xl" alt="">
                 
-                <div id="video-container" class="absolute inset-0 rounded-3xl overflow-hidden bg-slate-900 border-2 border-slate-700 hidden z-20">
-                    <video id="local-video" class="w-full h-full object-cover hidden" autoplay muted playsinline></video>
-                    <div id="video-placeholder" class="w-full h-full flex flex-col items-center justify-center text-slate-500">
-                        <i class="fa-solid fa-video-slash text-4xl mb-2"></i>
-                        <span class="text-xs">Câmera desligada</span>
-                    </div>
+                <div id="video-container" class="absolute inset-0 rounded-full overflow-hidden bg-slate-900 border-2 border-slate-700 hidden z-20">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300" class="w-full h-full object-cover">
                 </div>
             </div>
 
             <div class="flex flex-col items-center gap-6 w-full max-w-xs z-30">
                 <div class="flex justify-around w-full bg-slate-900/60 p-3 rounded-3xl backdrop-blur">
-                    <button id="btn-mute" onclick="toggleMute()" class="w-12 h-12 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition-all">
+                    <button onclick="toggleMute()" class="w-12 h-12 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition-all">
                         <i id="mute-icon" class="fa-solid fa-microphone text-lg"></i>
                     </button>
-                    <button id="btn-video-toggle" onclick="toggleLocalVideo()" class="w-12 h-12 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition-all">
-                        <i id="video-icon" class="fa-solid fa-video text-lg"></i>
-                    </button>
-                    <button id="btn-speaker" onclick="toggleSpeaker()" class="w-12 h-12 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition-all">
+                    <button onclick="toggleSpeaker()" class="w-12 h-12 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition-all">
                         <i id="speaker-icon" class="fa-solid fa-volume-high text-lg"></i>
                     </button>
                 </div>
@@ -174,27 +166,27 @@
                         <div class="w-full h-20 rounded-xl bg-[#efeae2] border border-slate-200 relative overflow-hidden" style="background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); background-size: 80px;"></div>
                         <span class="text-[11px] font-bold text-slate-600">Clássico</span>
                     </button>
-                    <button onclick="setWallpaper('dark')" class="flex flex-col items-center gap-1.5 p-2 rounded-2xl border border-slate-150 hover:border-brand-500 transition-all bg-slate-50/50">
-                        <div class="w-full h-20 rounded-xl bg-slate-900 border border-slate-700 relative"></div>
-                        <span class="text-[11px] font-bold text-slate-600">Slate Escuro</span>
+                    <button onclick="setWallpaper('slate')" class="flex flex-col items-center gap-1.5 p-2 rounded-2xl border border-slate-150 hover:border-brand-500 transition-all bg-slate-50/50">
+                        <div class="w-full h-20 rounded-xl bg-slate-800 border border-slate-700 relative"></div>
+                        <span class="text-[11px] font-bold text-slate-600">Cinza Escuro</span>
                     </button>
                     <button onclick="setWallpaper('emerald')" class="flex flex-col items-center gap-1.5 p-2 rounded-2xl border border-slate-150 hover:border-brand-500 transition-all bg-slate-50/50">
-                        <div class="w-full h-20 rounded-xl bg-emerald-950 border border-emerald-900 relative"></div>
+                        <div class="w-full h-20 rounded-xl bg-emerald-900 border border-emerald-800 relative"></div>
                         <span class="text-[11px] font-bold text-slate-600">Verde Imperial</span>
                     </button>
-                    <button onclick="setWallpaper('cyber')" class="flex flex-col items-center gap-1.5 p-2 rounded-2xl border border-slate-150 hover:border-brand-500 transition-all bg-slate-50/50">
-                        <div class="w-full h-20 rounded-xl bg-gradient-to-tr from-indigo-950 via-purple-950 to-pink-950 border border-purple-800 relative"></div>
-                        <span class="text-[11px] font-bold text-slate-600">Cyber Gradient</span>
+                    <button onclick="setWallpaper('indigo')" class="flex flex-col items-center gap-1.5 p-2 rounded-2xl border border-slate-150 hover:border-brand-500 transition-all bg-slate-50/50">
+                        <div class="w-full h-20 rounded-xl bg-indigo-900 border border-indigo-800 relative"></div>
+                        <span class="text-[11px] font-bold text-slate-600">Índigo Real</span>
                     </button>
                 </div>
             </div>
         </div>
 
-        <div id="sidebar" class="w-full md:w-[380px] h-full flex flex-col border-r border-slate-100 bg-white z-10 shrink-0">
+        <div id="sidebar" class="w-full md:w-[350px] h-full flex flex-col border-r border-slate-100 bg-white z-10 shrink-0">
             <div class="p-6 pb-3 flex justify-between items-center">
                 <h1 class="text-2xl font-black text-slate-800 tracking-tight">Mensagens</h1>
-                <div class="flex gap-4">
-                    <button class="text-brand-600 hover:text-brand-700 hover:bg-brand-100 transition-all text-[11px] font-bold flex items-center gap-1.5 bg-brand-50 px-3 py-2 rounded-full" onclick="simularMensagemRecebida()">
+                <div class="flex gap-2">
+                    <button class="text-brand-600 hover:text-brand-700 hover:bg-brand-100 transition-all text-[11px] font-bold flex items-center gap-1.5 bg-brand-50 px-3 py-2 rounded-full" onclick="simularRespostaAutomatica()">
                         <i class="fa-solid fa-robot animate-pulse"></i> Simular Msg
                     </button>
                 </div>
@@ -203,24 +195,45 @@
             <div class="px-6 py-2">
                 <div class="relative flex items-center">
                     <i class="fa-solid fa-magnifying-glass absolute left-4 text-slate-400 text-xs"></i>
-                    <input type="text" id="search-contacts" placeholder="Pesquisar contatos..." class="w-full bg-slate-50 text-slate-800 text-xs rounded-full py-3 pl-11 pr-4 border border-transparent focus:bg-white focus:border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/10 transition-all">
+                    <input type="text" id="search-contacts" oninput="filtrarContatos()" placeholder="Pesquisar contatos..." class="w-full bg-slate-50 text-slate-800 text-xs rounded-full py-3 pl-11 pr-4 border border-transparent focus:bg-white focus:border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/10 transition-all">
                 </div>
             </div>
 
-            <div id="contacts-list" class="flex-1 overflow-y-auto px-4 py-2 space-y-1"></div>
+            <div id="contacts-list" class="flex-1 overflow-y-auto px-4 py-2 space-y-1">
+                <div onclick="selecionarContato('Ana Silva', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150', 'Online')" class="flex items-center gap-3 p-3 rounded-2xl hover:bg-slate-50 cursor-pointer transition-all border-b border-slate-50">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150" class="w-11 h-11 rounded-full object-cover">
+                    <div class="flex-1">
+                        <div class="flex justify-between items-center">
+                            <h4 class="font-bold text-xs text-slate-800">Ana Silva</h4>
+                            <span class="text-[10px] text-slate-400">10:18</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 truncate">Áudio recebido • 0:18</p>
+                    </div>
+                </div>
+                <div onclick="selecionarContato('Carlos Souza', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150', 'Visto por último às 09:30')" class="flex items-center gap-3 p-3 rounded-2xl hover:bg-slate-50 cursor-pointer transition-all border-b border-slate-50">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150" class="w-11 h-11 rounded-full object-cover">
+                    <div class="flex-1">
+                        <div class="flex justify-between items-center">
+                            <h4 class="font-bold text-xs text-slate-800">Carlos Souza</h4>
+                            <span class="text-[10px] text-slate-400">Ontem</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 truncate">Combinado! Até amanhã.</p>
+                    </div>
+                </div>
+            </div>
 
             <div class="p-4 border-t border-slate-100 flex justify-between items-center bg-white shadow-[0_-4px_12px_rgba(0,0,0,0.02)]">
                 <button class="text-brand-500 hover:bg-brand-50 w-10 h-10 rounded-full flex items-center justify-center transition-all text-lg"><i class="fa-regular fa-comment-dots"></i></button>
                 <button class="text-slate-400 hover:text-slate-600 w-10 h-10 rounded-full flex items-center justify-center transition-all text-lg" onclick="toggleFullscreen()" title="Tela Cheia"><i class="fa-solid fa-expand"></i></button>
                 
-                <button class="w-12 h-12 rounded-full bg-brand-500 hover:bg-brand-600 text-white flex items-center justify-center shadow-lg shadow-brand-500/20 hover:shadow-brand-500/30 transition-all transform hover:scale-105 active:scale-95" onclick="alert('Criação de novos contatos indisponível nesta versão de teste.')">
+                <button class="w-12 h-12 rounded-full bg-brand-500 hover:bg-brand-600 text-white flex items-center justify-center shadow-lg shadow-brand-500/20 hover:shadow-brand-500/30 transition-all transform hover:scale-105 active:scale-95" onclick="alert('Funcionalidade de criação de contatos desativada no front de demonstração.')">
                     <i class="fa-solid fa-plus text-lg"></i>
                 </button>
 
                 <button class="text-slate-400 hover:text-red-500 w-10 h-10 rounded-full flex items-center justify-center transition-all text-lg" onclick="logout()" title="Sair"><i class="fa-solid fa-right-from-bracket"></i></button>
                 
-                <div class="relative cursor-pointer group" onclick="abrirMyProfileDrawer()" title="Meu Perfil (Clique para Editar)">
-                    <img id="my-avatar-profile" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150" class="w-9 h-9 rounded-full object-cover border-2 border-slate-100 hover:border-brand-500 hover:scale-105 transition-all shadow-sm" alt="Meu Perfil">
+                <div class="relative cursor-pointer group" title="Meu Perfil">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150" class="w-9 h-9 rounded-full object-cover border-2 border-slate-100 shadow-sm" alt="Meu Perfil">
                     <span class="absolute bottom-0 right-0 w-3 h-3 bg-brand-500 rounded-full border-2 border-white"></span>
                 </div>
             </div>
@@ -229,1493 +242,395 @@
         <div id="chat-window" class="hidden md:flex flex-1 h-full flex-col bg-slate-50 relative overflow-hidden">
             
             <div class="p-4 bg-white border-b border-slate-100 flex justify-between items-center z-10 shadow-sm">
-                <div class="flex items-center gap-3 cursor-pointer group select-none flex-1" onclick="abrirProfileDrawer()">
-                    <button class="md:hidden text-slate-500 hover:text-slate-700 mr-2 w-8 h-8 rounded-full hover:bg-slate-50 flex items-center justify-center" onclick="voltarParaLista(); event.stopPropagation();">
+                <div class="flex items-center gap-3 select-none flex-1">
+                    <button class="md:hidden text-slate-500 hover:text-slate-700 mr-2 w-8 h-8 rounded-full hover:bg-slate-50 flex items-center justify-center" onclick="voltarParaLista()">
                         <i class="fa-solid fa-arrow-left text-lg"></i>
                     </button>
                     <div class="relative">
-                        <div id="active-user-avatar-placeholder" class="w-11 h-11 rounded-full bg-brand-500 text-white flex items-center justify-center text-xl hidden shadow-md">🛡️</div>
-                        <img id="active-user-pic" src="" class="w-11 h-11 rounded-full object-cover border border-slate-100 group-hover:scale-105 transition-transform" alt="Perfil">
+                        <img id="active-user-pic" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150" class="w-11 h-11 rounded-full object-cover border border-slate-100" alt="Perfil">
                         <span id="active-user-status-dot" class="absolute bottom-0 right-0 w-3 h-3 border-2 border-white rounded-full bg-brand-500"></span>
                     </div>
                     <div>
-                        <h2 id="active-user-name" class="font-bold text-slate-800 text-sm group-hover:text-brand-500 transition-colors">Carregando...</h2>
-                        <span id="active-user-status" class="text-xs"></span>
+                        <h2 id="active-user-name" class="font-bold text-slate-800 text-sm">Ana Silva</h2>
+                        <span id="active-user-status" class="text-xs text-brand-500">Online</span>
                     </div>
                 </div>
                 
                 <div class="flex items-center gap-3 text-slate-400">
                     <button onclick="abrirModalWallpaper()" class="w-10 h-10 rounded-full hover:bg-slate-100 hover:text-brand-500 transition-all text-md" title="Papel de Parede"><i class="fa-solid fa-wand-magic-sparkles"></i></button>
-                    <button onclick="iniciarChamada('voz')" class="w-10 h-10 rounded-full hover:bg-slate-100 hover:text-brand-500 transition-all text-md"><i class="fa-solid fa-phone"></i></button>
-                    <button onclick="iniciarChamada('video')" class="w-10 h-10 rounded-full hover:bg-slate-100 hover:text-brand-500 transition-all text-md"><i class="fa-solid fa-video"></i></button>
-                    <button class="w-10 h-10 rounded-full hover:bg-slate-100 hover:text-slate-800 transition-all text-md" onclick="abrirProfileDrawer()"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    <button onclick="iniciarChamada('voz')" class="w-10 h-10 rounded-full hover:bg-slate-100 hover:text-brand-500 transition-all text-md" title="Ligação"><i class="fa-solid fa-phone"></i></button>
+                    <button onclick="iniciarChamada('video')" class="w-10 h-10 rounded-full hover:bg-slate-100 hover:text-brand-500 transition-all text-md" title="Chamada de Vídeo"><i class="fa-solid fa-video"></i></button>
                 </div>
             </div>
 
-            <div id="messages-container" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+            <div id="messages-container" class="flex-1 overflow-y-auto p-6 space-y-4">
+                
+                <div class="mx-auto bg-emerald-50 text-emerald-800 text-xs px-3 py-1.5 rounded-lg shadow-sm max-w-[80%] text-center border border-emerald-100">
+                    <i class="fa-solid fa-lock text-[10px] mr-1"></i> As mensagens são criptografadas de ponta a ponta.
+                </div>
 
-            <div id="toast-notificacao" class="absolute top-20 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur border border-brand-100 shadow-xl px-5 py-3 rounded-full flex items-center gap-3 transform -translate-y-10 opacity-0 pointer-events-none transition-all duration-300 z-50">
+                <div class="flex items-end space-x-2 max-w-[85%] self-start">
+                    <div class="bg-white text-gray-800 p-3 rounded-2xl rounded-bl-none shadow-sm text-sm relative">
+                        <p>Oi! Tudo bem? Conseguiu separar os arquivos que te pedi?</p>
+                        <span class="text-[10px] text-gray-400 block text-right mt-1">10:14</span>
+                    </div>
+                </div>
+
+                <div class="flex items-end space-x-2 max-w-[85%] self-end justify-end ml-auto">
+                    <div class="bg-brand-100 text-gray-800 p-3 rounded-2xl rounded-br-none shadow-sm text-sm relative">
+                        <p>Oi, Ana! Tudo ótimo por aqui. Já separei sim, vou te mandar agora mesmo.</p>
+                        <div class="flex items-center justify-end space-x-1 mt-1">
+                            <span class="text-[10px] text-slate-500">10:15</span>
+                            <i class="fa-solid fa-check-double text-[11px] text-sky-500"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="toast-notificacao" class="absolute top-20 left-1/2 -translate-x-1/2 bg-white border border-brand-100 shadow-xl px-5 py-3 rounded-full flex items-center gap-3 transform -translate-y-10 opacity-0 pointer-events-none transition-all duration-300 z-50">
                 <span class="w-2 h-2 rounded-full bg-brand-500 animate-ping"></span>
-                <p class="text-xs font-bold text-slate-800">Nova mensagem de <span id="toast-sender" class="text-brand-600 font-extrabold">...</span>!</p>
+                <p class="text-xs font-bold text-slate-800">Nova mensagem de <span id="toast-sender" class="text-brand-600 font-extrabold">Ana Silva</span>!</p>
             </div>
 
             <div class="p-4 bg-white border-t border-slate-100 flex items-center gap-3 z-10 relative">
                 
                 <div id="normal-input-container" class="flex items-center gap-2.5 flex-1 transition-all duration-200">
                     <div class="relative group">
-                        <button class="w-11 h-11 bg-slate-50 hover:bg-slate-150 text-slate-500 rounded-full flex items-center justify-center border border-slate-100 transition-all">
+                        <button onclick="toggleAnexos()" class="w-11 h-11 bg-slate-50 hover:bg-slate-150 text-slate-500 rounded-full flex items-center justify-center border border-slate-100 transition-all">
                             <i class="fa-solid fa-paperclip text-md"></i>
                         </button>
-                        <div class="absolute bottom-14 left-0 bg-white shadow-2xl rounded-2xl p-2 border border-slate-100 flex flex-col gap-1 hidden group-hover:block w-44 z-20">
-                            <button onclick="enviarMidiaSimulada('imagem')" class="flex items-center gap-2.5 p-2.5 rounded-xl text-xs hover:bg-slate-50 text-slate-700 w-full transition-colors"><i class="fa-solid fa-image text-brand-500 w-5"></i> Foto ou Vídeo</button>
-                            <button onclick="enviarMidiaSimulada('documento')" class="flex items-center gap-2.5 p-2.5 rounded-xl text-xs hover:bg-slate-50 text-slate-700 w-full transition-colors"><i class="fa-solid fa-file text-blue-500 w-5"></i> Documento</button>
-                            <button onclick="iniciarGravacaoAudio()" class="flex items-center gap-2.5 p-2.5 rounded-xl text-xs hover:bg-slate-50 text-slate-700 w-full transition-colors"><i class="fa-solid fa-microphone text-red-500 w-5"></i> Gravar Áudio</button>
-                        </div>
-                    </div>
-
-                    <div class="relative group">
-                        <button class="w-11 h-11 bg-slate-50 hover:bg-slate-150 text-slate-500 rounded-full flex items-center justify-center border border-slate-100 transition-all">
-                            <i class="fa-regular fa-face-smile text-lg"></i>
-                        </button>
-                        <div class="absolute bottom-14 left-0 bg-white shadow-2xl rounded-2xl p-2.5 border border-slate-100 grid grid-cols-4 gap-2.5 hidden group-hover:grid w-40 z-20">
-                            <button onclick="inserirEmoji('😀')" class="text-lg hover:scale-125 transition-transform">😀</button>
-                            <button onclick="inserirEmoji('😂')" class="text-lg hover:scale-125 transition-transform">😂</button>
-                            <button onclick="inserirEmoji('👍')" class="text-lg hover:scale-125 transition-transform">👍</button>
-                            <button onclick="inserirEmoji('🔥')" class="text-lg hover:scale-125 transition-transform">🔥</button>
-                            <button onclick="inserirEmoji('🎉')" class="text-lg hover:scale-125 transition-transform">🎉</button>
-                            <button onclick="inserirEmoji('🚀')" class="text-lg hover:scale-125 transition-transform">🚀</button>
-                            <button onclick="inserirEmoji('❤️')" class="text-lg hover:scale-125 transition-transform">❤️</button>
-                            <button onclick="inserirEmoji('👀')" class="text-lg hover:scale-125 transition-transform">👀</button>
-                        </div>
-                    </div>
-
-                    <input type="text" id="mensagem-input" placeholder="Escreva sua mensagem..." class="flex-1 bg-slate-50 text-slate-800 rounded-full py-3.5 px-6 text-sm border border-transparent focus:bg-white focus:border-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500/20 transition-all" autocomplete="off">
-                </div>
-
-                <div id="recording-input-container" class="flex-1 items-center justify-between bg-red-50 border border-red-100 rounded-full py-2 px-5 hidden transition-all">
-                    <div class="flex items-center gap-3">
-                        <div id="wave-container" class="flex gap-0.5 items-center justify-center">
-                            <span class="wave-bar"></span>
-                            <span class="wave-bar"></span>
-                            <span class="wave-bar"></span>
-                            <span class="wave-bar"></span>
-                            <span class="wave-bar"></span>
-                        </div>
-                        <span class="text-xs font-bold text-red-600 tracking-wider">GRAVANDO ÁUDIO: <span id="record-timer" class="font-mono">00:00</span></span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <button onclick="cancelarGravacaoAudio()" class="w-9 h-9 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-600 flex items-center justify-center transition-all" title="Descartar">
-                            <i class="fa-solid fa-trash-can text-xs"></i>
-                        </button>
-                        <button onclick="pararEEnviarGravacaoAudio()" class="w-9 h-9 rounded-full bg-red-500 hover:bg-red-600 text-white flex items-center justify-center transition-all shadow-md shadow-red-500/20" title="Enviar">
-                            <i class="fa-solid fa-check text-xs"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <button id="send-main-btn" onclick="enviarBotaoPrincipal()" class="w-11 h-11 bg-brand-500 hover:bg-brand-600 text-white rounded-full flex items-center justify-center shadow-lg shadow-brand-500/20 hover:shadow-brand-500/30 transition-all shrink-0">
-                    <i id="action-icon" class="fa-solid fa-microphone text-lg"></i>
-                </button>
-            </div>
-
-            <div id="profile-drawer" class="absolute top-0 right-0 h-full w-full sm:w-[360px] bg-white border-l border-slate-100 shadow-2xl z-40 drawer-transition translate-x-full flex flex-col hidden">
-                <div class="p-5 border-b border-slate-50 flex justify-between items-center bg-slate-50/50">
-                    <h3 class="text-sm font-bold text-slate-800">Dados do Contato</h3>
-                    <div class="flex items-center gap-2">
-                        <button id="btn-edit-contact" onclick="toggleEditContact()" class="text-xs font-bold text-brand-600 hover:text-brand-700 bg-brand-50 hover:bg-brand-100 px-3 py-1.5 rounded-lg transition-all">Editar</button>
-                        <button onclick="fecharProfileDrawer()" class="text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full flex items-center justify-center hover:bg-slate-250 transition-all">
-                            <i class="fa-solid fa-xmark text-lg"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="flex-1 overflow-y-auto p-6 flex flex-col items-center text-center space-y-6">
-                    <div id="contact-view-mode" class="w-full flex flex-col items-center space-y-6">
-                        <div class="relative">
-                            <div id="drawer-avatar-placeholder" class="w-24 h-24 rounded-full bg-brand-500 text-white flex items-center justify-center text-4xl hidden shadow-lg shadow-brand-500/20">🛡️</div>
-                            <img id="drawer-avatar" src="" class="w-24 h-24 rounded-full object-cover border-4 border-slate-100 shadow-md" alt="">
-                            <span id="drawer-status-dot" class="absolute bottom-1 right-1 w-4 h-4 border-2 border-white rounded-full bg-brand-500"></span>
-                        </div>
-                        
-                        <div>
-                            <h4 id="drawer-name" class="text-lg font-black text-slate-800 tracking-tight">Nome do Contato</h4>
-                            <p id="drawer-status-text" class="text-xs font-bold text-brand-500 mt-1">Online</p>
-                        </div>
-
-                        <hr class="w-full border-slate-100">
-
-                        <div class="w-full space-y-4 text-left">
-                            <div>
-                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Recado / Bio</span>
-                                <p id="drawer-bio" class="text-xs text-slate-600 bg-slate-50 p-3.5 rounded-2xl leading-relaxed font-medium">Sem recado.</p>
-                            </div>
-
-                            <div>
-                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Telefone</span>
-                                <p id="drawer-phone" class="text-xs text-slate-700 bg-slate-50 px-3 py-3 rounded-xl font-bold flex items-center gap-2">
-                                    <i class="fa-solid fa-phone text-slate-400 text-xs"></i> <span>Não informado</span>
-                                </p>
-                            </div>
-
-                            <div>
-                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">E-mail</span>
-                                <p id="drawer-email" class="text-xs text-slate-700 bg-slate-50 px-3 py-3 rounded-xl font-bold flex items-center gap-2 truncate">
-                                    <i class="fa-solid fa-envelope text-slate-400 text-xs"></i> <span class="truncate">Não informado</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <hr class="w-full border-slate-100">
-
-                        <div class="w-full flex gap-3">
-                            <button onclick="iniciarChamada('voz'); fecharProfileDrawer();" class="flex-1 py-3 bg-brand-50 hover:bg-brand-100 text-brand-600 font-bold rounded-2xl text-xs transition-all flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-phone text-xs"></i> Chamada de Voz
+                        <div id="menu-anexos" class="absolute bottom-14 left-0 bg-white shadow-2xl rounded-2xl p-2 border border-slate-100 flex flex-col gap-1 hidden w-44 z-20">
+                            <button onclick="enviarMidiaSimulada('imagem')" class="flex items-center gap-2.5 p-2.5 rounded-xl text-xs hover:bg-slate-50 text-slate-700 w-full transition-colors">
+                                <i class="fa-solid fa-image text-brand-500 w-5"></i> Foto ou Vídeo
                             </button>
-                            <button onclick="iniciarChamada('video'); fecharProfileDrawer();" class="flex-1 py-3 bg-brand-50 hover:bg-brand-100 text-brand-600 font-bold rounded-2xl text-xs transition-all flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-video text-xs"></i> Vídeo
+                            <button onclick="enviarMidiaSimulada('documento')" class="flex items-center gap-2.5 p-2.5 rounded-xl text-xs hover:bg-slate-50 text-slate-700 w-full transition-colors">
+                                <i class="fa-solid fa-file text-blue-500 w-5"></i> Documento
                             </button>
                         </div>
                     </div>
 
-                    <div id="contact-edit-mode" class="w-full text-left space-y-4 hidden">
-                        <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Nome do Contato</label>
-                            <input id="edit-contact-name-input" type="text" class="w-full bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500/30">
-                        </div>
-                        <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">URL do Avatar</label>
-                            <input id="edit-contact-photo-input" type="text" class="w-full bg-slate-50 border border-slate-200 text-xs text-slate-600 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500/30">
-                        </div>
-                        <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Recado / Bio</label>
-                            <textarea id="edit-contact-bio-input" class="w-full bg-slate-50 border border-slate-200 text-xs text-slate-600 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500/30 resize-none h-16"></textarea>
-                        </div>
-                        <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Telefone</label>
-                            <input id="edit-contact-phone-input" type="text" class="w-full bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500/30">
-                        </div>
-                        <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">E-mail</label>
-                            <input id="edit-contact-email-input" type="email" class="w-full bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500/30">
-                        </div>
-                        <button onclick="salvarPerfilContato()" class="w-full py-3 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-2xl text-xs transition-all flex items-center justify-center gap-2 mt-2 shadow-lg shadow-brand-500/20">
-                            <i class="fa-solid fa-floppy-disk"></i> Salvar Perfil
+                    <button onclick="toggleEmojiPicker()" class="w-11 h-11 bg-slate-50 hover:bg-slate-150 text-slate-500 rounded-full flex items-center justify-center border border-slate-100 transition-all">
+                        <i class="fa-regular fa-face-smile text-lg"></i>
+                    </button>
+
+                    <form id="chat-form" onsubmit="enviarMensagemTexto(event)" class="flex-1 flex items-center">
+                        <input type="text" id="mensagem-input" placeholder="Digite uma mensagem" class="w-full bg-slate-50 border border-transparent text-slate-800 text-sm rounded-2xl py-3 px-4 focus:bg-white focus:border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/15 transition-all">
+                        <button type="submit" class="w-11 h-11 bg-brand-500 hover:bg-brand-600 text-white rounded-full flex items-center justify-center transition-all ml-2 shrink-0 shadow-md">
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
                         </button>
-                    </div>
-                </div>
-            </div>
+                    </form>
 
-            <div id="my-profile-drawer" class="absolute top-0 left-0 h-full w-full sm:w-[360px] bg-white border-r border-slate-100 shadow-2xl z-40 drawer-transition -translate-x-full flex flex-col hidden">
-                <div class="p-6 border-b border-slate-50 flex justify-between items-center bg-slate-50/50">
-                    <h3 class="text-sm font-bold text-slate-800">Meu Perfil Criptografado</h3>
-                    <button onclick="fecharMyProfileDrawer()" class="text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full flex items-center justify-center hover:bg-slate-100 transition-all">
-                        <i class="fa-solid fa-xmark text-lg"></i>
-                    </button>
-                </div>
-                <div class="flex-1 overflow-y-auto p-6 flex flex-col space-y-4">
-                    <div class="flex flex-col items-center text-center space-y-3 mb-4">
-                        <img id="my-drawer-avatar-preview" src="" class="w-20 h-20 rounded-full object-cover border-4 border-slate-100 shadow-md" alt="Preview">
-                        <h4 id="my-drawer-name-title" class="text-base font-black text-slate-800">Seu Nome</h4>
-                    </div>
-                    
-                    <div>
-                        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Seu Nome</label>
-                        <input id="my-edit-name-input" type="text" class="w-full bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500/30">
-                    </div>
-                    <div>
-                        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">URL do seu Avatar</label>
-                        <input id="my-edit-photo-input" type="text" class="w-full bg-slate-50 border border-slate-200 text-xs text-slate-600 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500/30">
-                    </div>
-                    <div>
-                        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Recado / Status</label>
-                        <textarea id="my-edit-bio-input" class="w-full bg-slate-50 border border-slate-200 text-xs text-slate-600 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500/30 resize-none h-16"></textarea>
-                    </div>
-                    <div>
-                        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">E-mail</label>
-                        <input id="my-edit-email-input" type="text" class="w-full bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-400 rounded-xl p-2.5 focus:outline-none cursor-not-allowed" disabled>
-                        <span class="text-[9px] text-slate-400 mt-1 block">O e-mail é gerido na chave de login e não pode ser editado aqui.</span>
-                    </div>
-                    <button onclick="salvarMeuPerfil()" class="w-full py-3 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-2xl text-xs transition-all flex items-center justify-center gap-2 mt-4 shadow-lg shadow-brand-500/20">
-                        <i class="fa-solid fa-floppy-disk"></i> Salvar Meu Perfil
+                    <button onclick="enviarAudioMock()" class="w-11 h-11 bg-slate-50 hover:bg-slate-150 text-slate-500 rounded-full flex items-center justify-center border border-slate-100 transition-all shrink-0" title="Enviar Áudio">
+                        <i class="fa-solid fa-microphone text-md"></i>
                     </button>
                 </div>
             </div>
-
         </div>
-
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    <script>
+        const loginContainer = document.getElementById('login-container');
+        const appContainer = document.getElementById('app-container');
+        const chatWindow = document.getElementById('chat-window');
+        const sidebar = document.getElementById('sidebar');
+        const messagesContainer = document.getElementById('messages-container');
+        const inputMensagem = document.getElementById('mensagem-input');
+        const menuAnexos = document.getElementById('menu-anexos');
+        const popupLigacao = document.getElementById('call-modal');
+        const toast = document.getElementById('toast-notificacao');
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyA3qtVwG2HfFUzQw-l0VnqQ3r_dx_HwTPo",
-            authDomain: "chat-mobile-d4dea.firebaseapp.com",
-            projectId: "chat-mobile-d4dea",
-            storageBucket: "chat-mobile-d4dea.firebasestorage.app",
-            messagingSenderId: "492131615338",
-            appId: "1:492131615338:web:11162bcbcffd8016b84013"
-        };
+        let contatoAtivoNome = "Ana Silva";
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const messagesCollection = collection(db, "messages");
-
-        // LISTA DE CONTATOS PADRÃO
-        const contatosPadrao = [
-            {
-                id: "firebase_blindado",
-                nome: "🛡️ Sala Ultra Blindada",
-                foto: "", 
-                isFirebase: true,
-                online: true,
-                ultimaMsg: "Conectado ao Firebase Cloud",
-                hora: "Live",
-                nLidas: 0,
-                bio: "Canal corporativo e sala de conferência em tempo real integrada aos serviços criptografados do Google Firebase.",
-                telefone: "Firebase Server Connection",
-                email: "app-id-492131615338@firebase.live",
-                mensagens: []
-            },
-            {
-                id: "blanche",
-                nome: "Blanche Howard",
-                foto: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150",
-                isFirebase: false,
-                online: true,
-                ultimaMsg: "Estarei lá no café...",
-                hora: "17:45",
-                nLidas: 1,
-                bio: "Focada no design sprint! Se for urgente, me ligue.",
-                telefone: "+55 (11) 98122-3344",
-                email: "blanche.howard@designcorp.com",
-                mensagens: [
-                    { tipo: "texto", de: "them", texto: "Oi! Você conseguiu finalizar aqueles arquivos para a reunião de mais tarde?", hora: "17:40" },
-                    { tipo: "texto", de: "me", texto: "Sim! Consegui separar tudo por categorias. Estou te mandando as fotos e o áudio explicativo aqui abaixo. 👇", hora: "17:42" },
-                    { tipo: "imagem", de: "me", url: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500", legenda: "Esboço do projeto aprovado", hora: "17:43" },
-                    { tipo: "audio", de: "me", duracao: "0:24", hora: "17:44" }
-                ]
-            },
-            {
-                id: "beatrice",
-                nome: "Beatrice Martinez",
-                foto: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150",
-                isFirebase: false,
-                online: false,
-                ultimaMsg: "Entendido. Obrigado! 😊",
-                hora: "14:05",
-                nLidas: 0,
-                bio: "Jurídico & Compliance. Em reuniões durante as tardes.",
-                telefone: "+55 (21) 97321-5512",
-                email: "beatrice.legal@martinezadv.com",
-                mensagens: [
-                    { tipo: "texto", de: "me", texto: "Olá Beatrice, os documentos já foram registrados?", hora: "13:50" },
-                    { tipo: "texto", de: "them", texto: "Sim, acabei de dar entrada no cartório de notas.", hora: "14:02" },
-                    { tipo: "texto", de: "them", texto: "Entendido. Obrigado! 😊", hora: "14:05" }
-                ]
-            },
-            {
-                id: "martin",
-                nome: "Martin Goodman",
-                foto: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150",
-                isFirebase: false,
-                online: false,
-                ultimaMsg: "Mensagem de áudio (0:15)",
-                hora: "10:15",
-                nLidas: 0,
-                bio: "Gerente de Produto | 'Menos é mais.' 🚀",
-                telefone: "+55 (31) 98877-6655",
-                email: "martin.product@goodmancenter.org",
-                mensagens: [
-                    { tipo: "texto", de: "me", texto: "Martin, me envia um feedback do novo design.", hora: "10:10" },
-                    { tipo: "audio", de: "them", duracao: "0:15", hora: "10:15" }
-                ]
-            },
-            {
-                id: "lilly",
-                nome: "Lilly Ballard",
-                foto: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
-                isFirebase: false,
-                online: false,
-                ultimaMsg: "Contrato_Final.pdf",
-                hora: "Ontem",
-                nLidas: 0,
-                bio: "Finanças e Contratos. Contatos apenas das 09h às 18h.",
-                telefone: "+55 (41) 99111-2233",
-                email: "lilly.ballard@financeiropro.com.br",
-                mensagens: [
-                    { tipo: "texto", de: "them", texto: "Bom dia! Segue em anexo o arquivo final do contrato.", hora: "Ontem" },
-                    { tipo: "documento", de: "them", nome: "Contrato_Final.pdf", tamanho: "1.8 MB", hora: "Ontem" }
-                ]
-            }
-        ];
-
-        // RECUPERA DO LOCALSTORAGE SE EXISTIR, SE NÃO INICIALIZA
-        let contatos = JSON.parse(localStorage.getItem('chat_contacts'));
-        if (!contatos || contatos.length === 0) {
-            contatos = contatosPadrao;
-            localStorage.setItem('chat_contacts', JSON.stringify(contatos));
-        }
-
-        // CARREGA MEU PERFIL DO LOCALSTORAGE
-        let meuPerfil = JSON.parse(localStorage.getItem('my_profile')) || {
-            nome: "Você (Usuário Pro)",
-            foto: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150",
-            bio: "Monitorando dados de rede local com segurança criptografada.",
-            email: ""
-        };
-
-        let contatoAtivoId = "firebase_blindado";
-        const containerMensagens = document.getElementById('messages-container');
-        const inputMsg = document.getElementById('mensagem-input');
-        const actionIcon = document.getElementById('action-icon');
-        const searchInput = document.getElementById('search-contacts');
-
-        // Controles de Áudio e Chamadas Auxiliares
-        let callTimer = null;
-        let ringInterval = null;
-        let countInterval = null;
-        let totalSeconds = 0;
-        let mediaStream = null;
-        let audioCtx = null;
-        let isMuted = false;
-        let isVideoActive = false;
-        let isSpeaker = false;
-
-        // Gravador de Áudio Real
-        let mediaRecorder = null;
-        let audioChunks = [];
-        let recInterval = null;
-        let recSeconds = 0;
-        let isRecording = false;
-
-        // Controle do Modo Edição do Contato Ativo
-        let isEditingContact = false;
-
-        // SALVA CONTATOS NO LOCALSTORAGE
-        function persistirContatos() {
-            localStorage.setItem('chat_contacts', JSON.stringify(contatos));
-        }
-
-        // GERADOR DE SINAIS DE ÁUDIO SINTÉTICOS
-        function tocarSom(tipo) {
-            try {
-                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-
-                if (tipo === 'receber') {
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); 
-                    osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.08); 
-                    gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
-                    osc.start();
-                    osc.stop(audioCtx.currentTime + 0.35);
-                } else if (tipo === 'enviar') {
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(400, audioCtx.currentTime);
-                    osc.frequency.exponentialRampToValueAtTime(1000, audioCtx.currentTime + 0.06);
-                    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.06);
-                    osc.start();
-                    osc.stop(audioCtx.currentTime + 0.06);
-                } else if (tipo === 'atender') {
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-                    osc.frequency.setValueAtTime(900, audioCtx.currentTime + 0.1);
-                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
-                    osc.start();
-                    osc.stop(audioCtx.currentTime + 0.3);
-                } else if (tipo === 'desligar') {
-                    osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(300, audioCtx.currentTime);
-                    if (osc.frequency.linearRampToValueAtTime) osc.frequency.linearRampToValueAtTime(150, audioCtx.currentTime + 0.25);
-                    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
-                    osc.start();
-                    osc.stop(audioCtx.currentTime + 0.25);
-                }
-            } catch (e) {
-                console.warn("Audio Context bloqueado ou indisponível:", e);
-            }
-        }
-
-        function iniciarTomChamando() {
-            try {
-                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                function playRing() {
-                    const osc1 = audioCtx.createOscillator();
-                    const osc2 = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
-                    osc1.connect(gain);
-                    osc2.connect(gain);
-                    gain.connect(audioCtx.destination);
-                    osc1.frequency.setValueAtTime(400, audioCtx.currentTime);
-                    osc2.frequency.setValueAtTime(450, audioCtx.currentTime);
-                    gain.gain.setValueAtTime(0, audioCtx.currentTime);
-                    if (gain.gain.linearRampToValueAtTime) gain.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 0.1);
-                    gain.gain.setValueAtTime(0.04, audioCtx.currentTime + 1.2);
-                    if (gain.gain.linearRampToValueAtTime) gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1.4);
-                    osc1.start();
-                    osc2.start();
-                    osc1.stop(audioCtx.currentTime + 1.5);
-                    osc2.stop(audioCtx.currentTime + 1.5);
-                }
-                playRing();
-                ringInterval = setInterval(playRing, 3000);
-            } catch (e) {
-                console.warn("Erro ao emitir toque:", e);
-            }
-        }
-
-        function pararTomChamando() {
-            if (ringInterval) {
-                clearInterval(ringInterval);
-                ringInterval = null;
-            }
-        }
-
-        // ESTADO DE LOGIN
-        function checkLoginState() {
-            const userEmail = localStorage.getItem('chat_user_email');
-            const loginContainer = document.getElementById('login-container');
-            const appContainer = document.getElementById('app-container');
-
-            if (userEmail) {
-                meuPerfil.email = userEmail;
-                localStorage.setItem('my_profile', JSON.stringify(meuPerfil));
-                
+        // Simula Login do Usuário
+        function login() {
+            const email = document.getElementById('loginEmail').value;
+            if(email) {
                 loginContainer.classList.add('hidden');
                 appContainer.classList.remove('hidden');
-                
-                document.getElementById('my-avatar-profile').src = meuPerfil.foto;
-
-                renderContatos();
-                selecionarContato(contatoAtivoId);
-            } else {
-                loginContainer.classList.remove('hidden');
-                appContainer.classList.add('hidden');
+                // Em telas maiores, mostra o chat por padrão
+                if (window.innerWidth >= 768) {
+                    selecionarContato('Ana Silva', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150', 'Online');
+                }
             }
         }
 
-        document.getElementById('enterChatBtn').addEventListener('click', () => {
-            const emailInput = document.getElementById('loginEmail');
-            const email = emailInput.value.trim();
-            const loginStatus = document.getElementById('loginStatus');
+        function logout() {
+            appContainer.classList.add('hidden');
+            loginContainer.classList.remove('hidden');
+        }
 
-            if (!email || !email.includes('@')) {
-                alert("Por favor, insira um e-mail válido.");
-                return;
-            }
-            if (email.length < 5 || email.length > 50) {
-                alert(`O e-mail digitado tem ${email.length} caracteres. Ele deve possuir entre 5 e 50 caracteres para as diretrizes de segurança.`);
-                return;
-            }
+        // Navegação de Contatos
+        function selecionarContato(nome, foto, status) {
+            contatoAtivoNome = nome;
+            document.getElementById('active-user-name').innerText = nome;
+            document.getElementById('active-user-pic').src = foto;
+            document.getElementById('active-user-status').innerText = status;
 
-            localStorage.setItem('chat_user_email', email);
-            loginStatus.textContent = "Conectado com sucesso!";
+            // Transição Mobile
+            sidebar.classList.add('hidden');
+            sidebar.classList.remove('w-full');
+            chatWindow.classList.remove('hidden');
+            chatWindow.classList.add('flex');
+
+            scrollParaBaixo();
+        }
+
+        function voltarParaLista() {
+            chatWindow.classList.add('hidden');
+            chatWindow.classList.remove('flex');
+            sidebar.classList.remove('hidden');
+            sidebar.classList.add('w-full');
+        }
+
+        // Scroll Automático
+        function scrollParaBaixo() {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Enviar Texto
+        function enviarMensagemTexto(e) {
+            e.preventDefault();
+            const texto = inputMensagem.value.trim();
+            if (!texto) return;
+
+            const agora = obterHoraAtual();
+            const html = `
+                <div class="flex items-end space-x-2 max-w-[85%] self-end justify-end ml-auto">
+                    <div class="bg-brand-100 text-gray-800 p-3 rounded-2xl rounded-br-none shadow-sm text-sm relative">
+                        <p>${texto}</p>
+                        <div class="flex items-center justify-end space-x-1 mt-1">
+                            <span class="text-[10px] text-slate-500">${agora}</span>
+                            <i class="fa-solid fa-check text-[11px] text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+            `;
+            messagesContainer.insertAdjacentHTML('beforeend', html);
+            inputMensagem.value = '';
+            scrollParaBaixo();
+
+            // Simulação de confirmação de entrega
+            const divEnviada = messagesContainer.lastElementChild;
+            const check = divEnviada.querySelector('i');
             
+            setTimeout(() => check.className = "fa-solid fa-check-double text-[11px] text-gray-400", 800);
             setTimeout(() => {
-                checkLoginState();
-                loginStatus.textContent = "";
-            }, 800);
-        });
-
-        window.logout = function() {
-            if (confirm("Deseja desconectar sua conta criptografada do dispositivo?")) {
-                localStorage.removeItem('chat_user_email');
-                localStorage.removeItem('chat_contacts');
-                localStorage.removeItem('my_profile');
-                checkLoginState();
-            }
+                check.className = "fa-solid fa-check-double text-[11px] text-sky-500";
+                simularRespostaAutomatica();
+            }, 2000);
         }
 
-        // SELEÇÃO DE CONTATO
-        window.selecionarContato = function(id) {
-            contatoAtivoId = id;
-            const contato = contatos.find(c => c.id === id);
-            if (contato) {
-                contato.nLidas = 0;
-            }
-            fecharProfileDrawer();
-            renderContatos();
-            renderMensagens();
-
-            if (window.innerWidth < 768) {
-                document.getElementById('sidebar').classList.add('hidden');
-                const chatWin = document.getElementById('chat-window');
-                chatWin.classList.remove('hidden');
-                chatWin.classList.add('flex');
-            }
+        // Menu de Anexos
+        function toggleAnexos() {
+            menuAnexos.classList.toggle('hidden');
         }
 
-        window.voltarParaLista = function() {
-            document.getElementById('sidebar').classList.remove('hidden');
-            const chatWin = document.getElementById('chat-window');
-            chatWin.classList.add('hidden');
-            chatWin.classList.remove('flex');
-            fecharProfileDrawer();
-            fecharMyProfileDrawer();
-        }
+        // Enviar Mídias (Fotos / Documentos)
+        function enviarMidiaSimulada(tipo) {
+            menuAnexos.classList.add('hidden');
+            const agora = obterHoraAtual();
+            let html = '';
 
-        // RENDERIZAÇÃO DA LISTA DE CONTATOS
-        function renderContatos() {
-            const listContainer = document.getElementById('contacts-list');
-            listContainer.innerHTML = '';
-            const filtro = searchInput.value.toLowerCase();
-            let visiveis = 0;
-
-            contatos.forEach(c => {
-                if (filtro && !c.nome.toLowerCase().includes(filtro)) return;
-                visiveis++;
-
-                const isSelected = c.id === contatoAtivoId;
-                const item = document.createElement('div');
-                item.className = `flex items-center gap-3.5 p-3.5 rounded-2xl cursor-pointer transition-all duration-300 select-none ${
-                    isSelected ? 'bg-brand-50 border border-brand-100/55 shadow-[0_4px_12px_rgba(16,185,129,0.08)]' : 'hover:bg-slate-50 border border-transparent'
-                }`;
-                item.onclick = () => selecionarContato(c.id);
-
-                let avatarHtml = '';
-                if (c.isFirebase) {
-                    avatarHtml = `<div class="w-11 h-11 rounded-full bg-brand-500 text-white flex items-center justify-center text-xl shrink-0 shadow-md shadow-brand-500/10">🛡️</div>`;
-                } else {
-                    avatarHtml = `
-                        <div class="relative shrink-0">
-                            <img src="${c.foto || 'https://images.unsplash.com/photo-1614680376593-902f74fa0d41?w=150'}" class="w-11 h-11 rounded-full object-cover border border-slate-200" alt="${c.nome}">
-                            <span class="absolute bottom-0 right-0 w-3 h-3 border-2 border-white rounded-full ${c.online ? 'bg-brand-500' : 'bg-slate-300'}"></span>
-                        </div>
-                    `;
-                }
-
-                const badge = c.nLidas > 0 ? `<span class="bg-brand-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center shrink-0 animate-bounce">${c.nLidas}</span>` : '';
-
-                item.innerHTML = `
-                    ${avatarHtml}
-                    <div class="flex-1 min-w-0">
-                        <div class="flex justify-between items-baseline mb-0.5">
-                            <h4 class="font-extrabold text-slate-800 text-sm truncate ${isSelected ? 'text-brand-900' : ''}">${c.nome}</h4>
-                            <span class="text-[10px] text-slate-400 font-semibold">${c.hora}</span>
-                        </div>
-                        <div class="flex justify-between items-center gap-2">
-                            <p class="text-xs text-slate-400 truncate flex-1 font-medium">${c.ultimaMsg}</p>
-                            ${badge}
+            if (tipo === 'imagem') {
+                html = `
+                    <div class="flex items-end space-x-2 max-w-[75%] self-end justify-end ml-auto">
+                        <div class="bg-brand-100 p-1.5 rounded-2xl rounded-br-none shadow-sm text-sm">
+                            <img src="https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?w=400" class="rounded-xl max-w-full object-cover max-h-48" alt="Foto">
+                            <p class="px-1 pt-1 text-xs text-gray-600">Enviando foto...</p>
+                            <div class="flex items-center justify-end space-x-1 mt-1 px-1">
+                                <span class="text-[10px] text-slate-500">${agora}</span>
+                                <i class="fa-solid fa-check-double text-[11px] text-sky-500"></i>
+                            </div>
                         </div>
                     </div>
                 `;
-                listContainer.appendChild(item);
-            });
-
-            if (visiveis === 0) {
-                listContainer.innerHTML = `
-                    <div class="flex flex-col items-center justify-center py-10 text-center px-4">
-                        <i class="fa-solid fa-magnifying-glass text-slate-300 text-3xl mb-3"></i>
-                        <h5 class="text-sm font-bold text-slate-700">Contato não encontrado</h5>
-                        <p class="text-[11px] text-slate-450 mt-1 max-w-[200px]">Tente digitar o nome completo ou remova os filtros.</p>
-                    </div>
-                `;
-            }
-        }
-
-        // RENDERIZAÇÃO DOS BALÕES DE MENSAGEM
-        function renderMensagens() {
-            containerMensagens.innerHTML = '';
-            const contato = contatos.find(c => c.id === contatoAtivoId);
-            if (!contato) return;
-
-            const activePic = document.getElementById('active-user-pic');
-            const activePlaceholder = document.getElementById('active-user-avatar-placeholder');
-            
-            if (contato.isFirebase) {
-                activePic.classList.add('hidden');
-                activePlaceholder.classList.remove('hidden');
-            } else {
-                activePic.src = contato.foto || 'https://images.unsplash.com/photo-1614680376593-902f74fa0d41?w=150';
-                activePic.classList.remove('hidden');
-                activePlaceholder.classList.add('hidden');
-            }
-
-            document.getElementById('active-user-name').textContent = contato.nome;
-            const statusEl = document.getElementById('active-user-status');
-            const statusDot = document.getElementById('active-user-status-dot');
-
-            if (contato.online) {
-                statusEl.textContent = 'Online';
-                statusEl.className = 'text-xs text-brand-500 font-bold';
-                statusDot.className = 'absolute bottom-0 right-0 w-3 h-3 border-2 border-white rounded-full bg-brand-500';
-            } else {
-                statusEl.textContent = 'Offline';
-                statusEl.className = 'text-xs text-slate-400 font-semibold';
-                statusDot.className = 'absolute bottom-0 right-0 w-3 h-3 border-2 border-white rounded-full bg-slate-300';
-            }
-
-            contato.mensagens.forEach((msg, idx) => {
-                const isMe = msg.de === 'me';
-                const msgWrapper = document.createElement('div');
-                msgWrapper.className = `flex flex-col ${isMe ? 'items-end' : 'items-start'} w-full animate-fade-in`;
-
-                const bubble = document.createElement('div');
-                bubble.className = `max-w-[75%] rounded-3xl px-4.5 py-3 shadow-sm text-sm relative group transition-all duration-200 ${
-                    isMe ? 'bg-brand-500 text-white rounded-tr-none' : 'bg-white text-slate-800 rounded-tl-none border border-slate-100'
-                }`;
-
-                let senderLabel = '';
-                if (!isMe && contato.isFirebase && msg.senderId) {
-                    const nick = msg.senderId.split('@')[0];
-                    senderLabel = `<span class="block text-[11px] font-black mb-1.5 text-brand-600">${nick}</span>`;
-                }
-
-                let bodyHtml = '';
-                if (msg.tipo === 'texto') {
-                    bodyHtml = `<p class="leading-relaxed break-words font-medium">${msg.texto}</p>`;
-                } else if (msg.tipo === 'imagem') {
-                    bodyHtml = `
-                        <div class="rounded-2xl overflow-hidden mb-1.5 max-w-full shadow-sm border border-black/5 bg-slate-100">
-                            <img src="${msg.url}" class="max-h-64 object-cover w-full cursor-pointer hover:opacity-95 transition-all" alt="Anexo">
-                        </div>
-                        ${msg.legenda ? `<p class="text-xs mt-1.5 opacity-90 leading-relaxed font-semibold">${msg.legenda}</p>` : ''}
-                    `;
-                } else if (msg.tipo === 'audio') {
-                    const audioElemId = `bubble-audio-${contato.id}-${idx}`;
-                    bodyHtml = `
-                        <div class="flex items-center gap-3.5 py-1 min-w-[220px]">
-                            ${msg.url ? `<audio id="${audioElemId}" src="${msg.url}" class="hidden" onended="onAudioEnded('${audioElemId}')" ontimeupdate="onAudioProgress('${audioElemId}')"></audio>` : ''}
-                            <button onclick="playPauseBubbleAudio('${audioElemId}', ${!!msg.url})" class="w-9 h-9 rounded-full ${isMe ? 'bg-brand-600 hover:bg-brand-700 text-white shadow-sm' : 'bg-slate-100 hover:bg-slate-200 text-slate-700'} flex items-center justify-center shrink-0 transition-all">
-                                <i id="icon-${audioElemId}" class="fa-solid fa-play text-xs pl-0.5"></i>
-                            </button>
-                            <div class="flex-1">
-                                <div class="h-1.5 w-full bg-slate-200/50 rounded-full overflow-hidden relative">
-                                    <div id="bar-${audioElemId}" class="h-full bg-brand-500 w-0 rounded-full transition-all duration-100"></div>
+            } else if (tipo === 'documento') {
+                html = `
+                    <div class="flex items-end space-x-2 max-w-[85%] self-end justify-end ml-auto">
+                        <div class="bg-brand-100 p-2 rounded-2xl rounded-br-none shadow-sm text-sm flex flex-col min-w-[220px]">
+                            <div class="bg-emerald-200/50 rounded-lg p-3 flex items-center justify-between space-x-3">
+                                <div class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-file-pdf text-red-500 text-2xl"></i>
+                                    <div class="text-left">
+                                        <p class="font-semibold text-xs text-gray-700 truncate max-w-[120px]">Relatorio_Mensal.pdf</p>
+                                        <span class="text-[10px] text-slate-500">1.2 MB • PDF</span>
+                                    </div>
                                 </div>
+                                <i class="fa-solid fa-arrow-down text-xs text-gray-600"></i>
                             </div>
-                            <span class="text-[10px] font-bold ${isMe ? 'text-brand-100' : 'text-slate-400'}" id="timer-${audioElemId}">${msg.duracao || '0:15'}</span>
-                        </div>
-                    `;
-                } else if (msg.tipo === 'documento') {
-                    bodyHtml = `
-                        <div class="flex items-center gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-100 text-slate-700 min-w-[220px]">
-                            <i class="fa-solid fa-file-pdf text-red-500 text-2xl"></i>
-                            <div class="flex-1 overflow-hidden">
-                                <p class="text-xs font-bold truncate">${msg.nome}</p>
-                                <span class="text-[10px] text-slate-400">${msg.tamanho}</span>
+                            <div class="flex items-center justify-end space-x-1 mt-1 mr-1">
+                                <span class="text-[10px] text-slate-500">${agora}</span>
+                                <i class="fa-solid fa-check-double text-[11px] text-sky-500"></i>
                             </div>
-                            <button class="text-slate-400 hover:text-slate-600 w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-200 transition-all"><i class="fa-solid fa-download text-xs"></i></button>
                         </div>
-                    `;
-                }
-
-                const timeHtml = `
-                    <div class="text-[9px] text-right mt-1.5 opacity-70 select-none flex items-center justify-end gap-1 font-semibold">
-                        <span>${msg.hora}</span>
-                        ${isMe ? '<i class="fa-solid fa-check-double text-sky-300 text-[10px]"></i>' : ''}
                     </div>
                 `;
-
-                bubble.innerHTML = `${senderLabel}${bodyHtml}${timeHtml}`;
-                msgWrapper.appendChild(bubble);
-                containerMensagens.appendChild(msgWrapper);
-            });
-
-            containerMensagens.scrollTop = containerMensagens.scrollHeight;
-        }
-
-        // INSERE EMOJI NO INPUT
-        window.inserirEmoji = function(emoji) {
-            inputMsg.value += emoji;
-            inputMsg.focus();
-            atualizarIconeInput();
-        }
-
-        // PLAYER DE ÁUDIO DE MOCK E GRAVAÇÃO REAL
-        window.playPauseBubbleAudio = function(id, hasRealAudio) {
-            const audio = document.getElementById(id);
-            const playIcon = document.getElementById(`icon-${id}`);
-            const progressBar = document.getElementById(`bar-${id}`);
-
-            if (!hasRealAudio) {
-                if (playIcon.className.includes('fa-play')) {
-                    playIcon.className = "fa-solid fa-pause text-xs";
-                    tocarSom('receber');
-                    let progress = 0;
-                    const simTimer = setInterval(() => {
-                        progress += 10;
-                        if (progressBar) progressBar.style.width = `${progress}%`;
-                        if (progress >= 100) {
-                            clearInterval(simTimer);
-                            playIcon.className = "fa-solid fa-play text-xs pl-0.5";
-                            if (progressBar) progressBar.style.width = "0%";
-                        }
-                    }, 300);
-                } else {
-                    playIcon.className = "fa-solid fa-play text-xs pl-0.5";
-                    if (progressBar) progressBar.style.width = "0%";
-                }
-                return;
             }
-
-            if (audio.paused) {
-                audio.play();
-                playIcon.className = "fa-solid fa-pause text-xs";
-            } else {
-                audio.pause();
-                playIcon.className = "fa-solid fa-play text-xs pl-0.5";
-            }
+            messagesContainer.insertAdjacentHTML('beforeend', html);
+            scrollParaBaixo();
         }
 
-        window.onAudioProgress = function(id) {
-            const audio = document.getElementById(id);
-            const progressBar = document.getElementById(`bar-${id}`);
-            if (audio && progressBar && audio.duration) {
-                const pct = (audio.currentTime / audio.duration) * 100;
-                progressBar.style.width = `${pct}%`;
-            }
+        // Enviar Mensagem de Áudio
+        function enviarAudioMock() {
+            const agora = obterHoraAtual();
+            const html = `
+                <div class="flex items-end space-x-2 max-w-[85%] self-end justify-end ml-auto">
+                    <div class="bg-brand-100 p-3 rounded-2xl rounded-br-none shadow-sm text-sm w-[260px]">
+                        <div class="flex items-center space-x-3">
+                            <button class="w-8 h-8 bg-brand-500 text-white rounded-full flex items-center justify-center hover:scale-105 transition">
+                                <i class="fa-solid fa-play ml-0.5"></i>
+                            </button>
+                            <div class="flex-1 flex items-center space-x-0.5">
+                                <span class="h-4 w-1 bg-brand-500 rounded-full"></span>
+                                <span class="h-6 w-1 bg-brand-500 rounded-full"></span>
+                                <span class="h-2 w-1 bg-brand-500/40 rounded-full"></span>
+                                <span class="h-5 w-1 bg-brand-500 rounded-full"></span>
+                                <span class="h-7 w-1 bg-brand-500 rounded-full"></span>
+                                <span class="h-3 w-1 bg-brand-500/40 rounded-full"></span>
+                            </div>
+                            <span class="text-xs font-semibold text-slate-600">0:07</span>
+                        </div>
+                        <div class="flex items-center justify-end space-x-1 mt-1">
+                            <span class="text-[10px] text-slate-500">${agora}</span>
+                            <i class="fa-solid fa-check-double text-[11px] text-sky-500"></i>
+                        </div>
+                    </div>
+                </div>
+            `;
+            messagesContainer.insertAdjacentHTML('beforeend', html);
+            scrollParaBaixo();
         }
 
-        window.onAudioEnded = function(id) {
-            const playIcon = document.getElementById(`icon-${id}`);
-            const progressBar = document.getElementById(`bar-${id}`);
-            if (playIcon) playIcon.className = "fa-solid fa-play text-xs pl-0.5";
-            if (progressBar) progressBar.style.width = "0%";
-        }
-
-        // GRAVAÇÃO DE ÁUDIO DO MICROFONE (REAL COM WEB AUDIO)
-        window.iniciarGravacaoAudio = async function() {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                mediaStream = stream;
-                mediaRecorder = new MediaRecorder(stream);
-                audioChunks = [];
-
-                mediaRecorder.ondataavailable = (event) => {
-                    audioChunks.push(event.data);
-                };
-
-                mediaRecorder.onstop = () => {
-                    const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
-                    const audioUrl = URL.createObjectURL(audioBlob);
-                    processarEnvioAudio(audioUrl, recSeconds);
-                    stream.getTracks().forEach(track => track.stop());
-                };
-
-                mediaRecorder.start();
-                isRecording = true;
-                recSeconds = 0;
-                document.getElementById('record-timer').textContent = "00:00";
-                
-                document.getElementById('normal-input-container').classList.add('hidden');
-                document.getElementById('recording-input-container').classList.remove('hidden');
-                document.getElementById('recording-input-container').classList.add('flex');
-                document.getElementById('send-main-btn').classList.add('hidden');
-
-                recInterval = setInterval(() => {
-                    recSeconds++;
-                    const m = String(Math.floor(recSeconds / 60)).padStart(2, '0');
-                    const s = String(recSeconds % 60).padStart(2, '0');
-                    document.getElementById('record-timer').textContent = `${m}:${s}`;
-                }, 1000);
-
-            } catch (e) {
-                console.error("Erro ao acessar permissões de áudio:", e);
-                alert("Para gravar áudio de verdade, permita o acesso ao microfone do seu dispositivo.");
-            }
-        }
-
-        window.cancelarGravacaoAudio = function() {
-            if (mediaRecorder && isRecording) {
-                mediaRecorder.onstop = null; 
-                mediaRecorder.stop();
-                if (mediaStream) {
-                    mediaStream.getTracks().forEach(track => track.stop());
-                }
-                finalizarUIUIGravacao();
-            }
-        }
-
-        window.pararEEnviarGravacaoAudio = function() {
-            if (mediaRecorder && isRecording) {
-                mediaRecorder.stop();
-                finalizarUIUIGravacao();
-            }
-        }
-
-        function finalizarUIUIGravacao() {
-            isRecording = false;
-            clearInterval(recInterval);
-            document.getElementById('normal-input-container').classList.remove('hidden');
-            document.getElementById('recording-input-container').classList.add('hidden');
-            document.getElementById('recording-input-container').classList.remove('flex');
-            document.getElementById('send-main-btn').classList.remove('hidden');
-        }
-
-        function processarEnvioAudio(audioUrl, totalSecs) {
-            const min = String(Math.floor(totalSecs / 60)).padStart(2, '0');
-            const seg = String(totalSecs % 60).padStart(2, '0');
-            const durStr = `${min}:${seg}`;
+        // Controles de Chamada
+        function iniciarChamada(tipo) {
+            document.getElementById('call-contact-name').innerText = contatoAtivoNome;
+            document.getElementById('call-contact-photo').src = document.getElementById('active-user-pic').src;
             
-            const activeContact = contatos.find(c => c.id === contatoAtivoId);
-            if (!activeContact) return;
+            const label = document.getElementById('call-type-label');
+            const videoContainer = document.getElementById('video-container');
 
-            tocarSom('enviar');
-            const horaAtual = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-            if (activeContact.isFirebase) {
-                const userEmail = localStorage.getItem('chat_user_email');
-                addDoc(messagesCollection, {
-                    content: `🎙️ Áudio Gravado (${durStr})`,
-                    senderId: userEmail,
-                    isImage: false,
-                    isAudio: true,
-                    audioLength: durStr,
-                    timestamp: serverTimestamp()
-                });
+            if(tipo === 'video') {
+                label.innerText = 'Chamada de Vídeo';
+                videoContainer.classList.remove('hidden');
             } else {
-                activeContact.mensagens.push({
-                    tipo: "audio",
-                    de: "me",
-                    url: audioUrl,
-                    duracao: durStr,
-                    hora: horaAtual
-                });
-                activeContact.ultimaMsg = "🎙️ Mensagem de voz";
-                activeContact.hora = "Agora";
-                persistirContatos();
-                renderContatos();
-                renderMensagens();
+                label.innerText = 'Chamada de voz';
+                videoContainer.classList.add('hidden');
             }
+
+            popupLigacao.classList.remove('hidden');
         }
 
-        // SISTEMA DE PAPÉIS DE PAREDE
-        window.abrirModalWallpaper = function() {
+        function encerrarChamada() {
+            popupLigacao.classList.add('hidden');
+        }
+
+        // Configuração de Papel de Parede
+        function abrirModalWallpaper() {
             document.getElementById('wallpaper-modal').classList.remove('hidden');
-            document.getElementById('wallpaper-modal').classList.add('flex');
         }
-
-        window.fecharModalWallpaper = function() {
+        function fecharModalWallpaper() {
             document.getElementById('wallpaper-modal').classList.add('hidden');
-            document.getElementById('wallpaper-modal').classList.remove('flex');
         }
-
-        window.setWallpaper = function(theme) {
-            const container = document.getElementById('messages-container');
-            container.style.backgroundColor = '';
-            container.style.backgroundImage = '';
-            container.style.backgroundBlendMode = '';
-
-            if (theme === 'classic') {
-                container.style.backgroundColor = '#efeae2';
-                container.style.backgroundImage = 'url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png")';
-                container.style.backgroundBlendMode = 'overlay';
-            } else if (theme === 'dark') {
-                container.style.backgroundColor = '#0f172a'; 
-            } else if (theme === 'emerald') {
-                container.style.backgroundColor = '#022c22'; 
-                container.style.backgroundImage = 'url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png")';
-                container.style.backgroundBlendMode = 'color-burn';
-            } else if (theme === 'cyber') {
-                container.style.backgroundImage = 'linear-gradient(to top right, #311042, #110e2e, #03001e)';
+        function setWallpaper(tipo) {
+            if (tipo === 'classic') {
+                messagesContainer.style.backgroundColor = '#efeae2';
+                messagesContainer.style.backgroundImage = "url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png')";
+            } else if (tipo === 'slate') {
+                messagesContainer.style.backgroundColor = '#1e293b';
+                messagesContainer.style.backgroundImage = 'none';
+            } else if (tipo === 'emerald') {
+                messagesContainer.style.backgroundColor = '#064e3b';
+                messagesContainer.style.backgroundImage = 'none';
+            } else if (tipo === 'indigo') {
+                messagesContainer.style.backgroundColor = '#312e81';
+                messagesContainer.style.backgroundImage = 'none';
             }
-
-            localStorage.setItem('chat_wallpaper', theme);
             fecharModalWallpaper();
         }
 
-        // MEU PERFIL (DRAWER ESQUERDA)
-        window.abrirMyProfileDrawer = function() {
-            const drawer = document.getElementById('my-profile-drawer');
-            
-            document.getElementById('my-drawer-avatar-preview').src = meuPerfil.foto || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150';
-            document.getElementById('my-drawer-name-title').textContent = meuPerfil.nome;
-            document.getElementById('my-edit-name-input').value = meuPerfil.nome;
-            document.getElementById('my-edit-photo-input').value = meuPerfil.foto;
-            document.getElementById('my-edit-bio-input').value = meuPerfil.bio;
-            document.getElementById('my-edit-email-input').value = meuPerfil.email || localStorage.getItem('chat_user_email');
-
-            drawer.classList.remove('hidden');
-            setTimeout(() => {
-                drawer.classList.remove('-translate-x-full');
-            }, 50);
+        // Ferramentas Auxiliares
+        function toggleEmojiPicker() {
+            const emojis = ["😅", "👍", "🔥", "❤️", "🚀", "😂", "👀", "💻"];
+            const aleatorio = emojis[Math.floor(Math.random() * emojis.length)];
+            inputMensagem.value += aleatorio;
+            inputMensagem.focus();
         }
 
-        window.fecharMyProfileDrawer = function() {
-            const drawer = document.getElementById('my-profile-drawer');
-            drawer.classList.add('-translate-x-full');
-            setTimeout(() => {
-                drawer.classList.add('hidden');
-            }, 300);
-        }
-
-        window.salvarMeuPerfil = function() {
-            const novoNome = document.getElementById('my-edit-name-input').value.trim();
-            const novaFoto = document.getElementById('my-edit-photo-input').value.trim();
-            const novaBio = document.getElementById('my-edit-bio-input').value.trim();
-
-            if (!novoNome) {
-                alert("O seu nome de perfil não pode ficar vazio.");
-                return;
-            }
-
-            meuPerfil.nome = novoNome;
-            meuPerfil.foto = novaFoto;
-            meuPerfil.bio = novaBio;
-
-            localStorage.setItem('my_profile', JSON.stringify(meuPerfil));
-            document.getElementById('my-avatar-profile').src = meuPerfil.foto;
-
-            fecharMyProfileDrawer();
-            alert("Perfil salvo com sucesso!");
-        }
-
-        // PERFIL DO CONTATO (DRAWER DIREITA)
-        window.abrirProfileDrawer = function() {
-            const contato = contatos.find(c => c.id === contatoAtivoId);
-            if (!contato) return;
-
-            isEditingContact = false;
-            switchContactDrawerMode();
-
-            const drawer = document.getElementById('profile-drawer');
-            const avatarPlace = document.getElementById('drawer-avatar-placeholder');
-            const avatarImg = document.getElementById('drawer-avatar');
-            const statusDot = document.getElementById('drawer-status-dot');
-            const nameEl = document.getElementById('drawer-name');
-            const statusText = document.getElementById('drawer-status-text');
-            const bioEl = document.getElementById('drawer-bio');
-            const phoneEl = document.getElementById('drawer-phone').querySelector('span');
-            const emailEl = document.getElementById('drawer-email').querySelector('span');
-
-            if (contato.isFirebase) {
-                avatarImg.classList.add('hidden');
-                avatarPlace.classList.remove('hidden');
-                document.getElementById('btn-edit-contact').classList.add('hidden');
-            } else {
-                avatarImg.src = contato.foto || 'https://images.unsplash.com/photo-1614680376593-902f74fa0d41?w=150';
-                avatarImg.classList.remove('hidden');
-                avatarPlace.classList.add('hidden');
-                document.getElementById('btn-edit-contact').classList.remove('hidden');
-            }
-
-            nameEl.textContent = contato.nome;
-            statusText.textContent = contato.online ? 'Online' : 'Offline';
-            statusText.className = contato.online ? 'text-xs font-bold text-brand-500 mt-0.5' : 'text-xs font-bold text-slate-400 mt-0.5';
-            statusDot.className = `absolute bottom-1 right-1 w-4 h-4 border-2 border-white rounded-full ${contato.online ? 'bg-brand-500' : 'bg-slate-300'}`;
-
-            bioEl.textContent = contato.bio || "Sem recado definido.";
-            phoneEl.textContent = contato.telefone || "Não disponível";
-            emailEl.textContent = contato.email || "Não disponível";
-
-            drawer.classList.remove('hidden');
-            setTimeout(() => {
-                drawer.classList.remove('translate-x-full');
-            }, 50);
-        }
-
-        window.fecharProfileDrawer = function() {
-            const drawer = document.getElementById('profile-drawer');
-            drawer.classList.add('translate-x-full');
-            setTimeout(() => {
-                drawer.classList.add('hidden');
-                isEditingContact = false;
-            }, 300);
-        }
-
-        window.toggleEditContact = function() {
-            const contato = contatos.find(c => c.id === contatoAtivoId);
-            if (!contato || contato.isFirebase) return;
-
-            isEditingContact = !isEditingContact;
-            switchContactDrawerMode();
-
-            if (isEditingContact) {
-                document.getElementById('edit-contact-name-input').value = contato.nome;
-                document.getElementById('edit-contact-photo-input').value = contato.foto;
-                document.getElementById('edit-contact-bio-input').value = contato.bio || "";
-                document.getElementById('edit-contact-phone-input').value = contato.telefone || "";
-                document.getElementById('edit-contact-email-input').value = contato.email || "";
-            }
-        }
-
-        function switchContactDrawerMode() {
-            const viewMode = document.getElementById('contact-view-mode');
-            const editMode = document.getElementById('contact-edit-mode');
-            const btnEdit = document.getElementById('btn-edit-contact');
-
-            if (isEditingContact) {
-                viewMode.classList.add('hidden');
-                editMode.classList.remove('hidden');
-                btnEdit.textContent = "Cancelar";
-                btnEdit.className = "text-xs font-bold text-red-500 hover:text-red-600 bg-red-50 px-3 py-1.5 rounded-lg transition-all";
-            } else {
-                viewMode.classList.remove('hidden');
-                editMode.classList.add('hidden');
-                btnEdit.textContent = "Editar";
-                btnEdit.className = "text-xs font-bold text-brand-600 hover:text-brand-700 bg-brand-50 px-3 py-1.5 rounded-lg transition-all";
-            }
-        }
-
-        window.salvarPerfilContato = function() {
-            const contato = contatos.find(c => c.id === contatoAtivoId);
-            if (!contato || contato.isFirebase) return;
-
-            const novoNome = document.getElementById('edit-contact-name-input').value.trim();
-            const novaFoto = document.getElementById('edit-contact-photo-input').value.trim();
-            const novaBio = document.getElementById('edit-contact-bio-input').value.trim();
-            const novoPhone = document.getElementById('edit-contact-phone-input').value.trim();
-            const novoEmail = document.getElementById('edit-contact-email-input').value.trim();
-
-            if (!novoNome) {
-                alert("O nome do contato não pode ficar vazio.");
-                return;
-            }
-
-            contato.nome = novoNome;
-            contato.foto = novaFoto;
-            contato.bio = novaBio;
-            contato.telefone = novoPhone;
-            contato.email = novoEmail;
-
-            persistirContatos();
-            renderContatos();
-            renderMensagens();
-
-            isEditingContact = false;
-            switchContactDrawerMode();
-            abrirProfileDrawer();
-        }
-
-        // ENVIAR MENSAGENS
-        window.enviarBotaoPrincipal = function() {
-            const texto = inputMsg.value.trim();
-            if (texto) {
-                enviarSessaoMensagem(texto);
-            } else {
-                iniciarGravacaoAudio();
-            }
-        }
-
-        async function enviarSessaoMensagem(texto) {
-            const userEmail = localStorage.getItem('chat_user_email');
-            const contatoAtivo = contatos.find(c => c.id === contatoAtivoId);
-
-            if (!contatoAtivo) return;
-
-            tocarSom('enviar');
-
-            if (contatoAtivo.isFirebase) {
-                if (!userEmail) {
-                    alert("Você precisa fazer login antes de enviar!");
-                    logout();
-                    return;
-                }
-                if (texto.length > 1000) {
-                    alert("A mensagem excede o limite de 1000 caracteres.");
-                    return;
-                }
-
-                try {
-                    await addDoc(messagesCollection, {
-                        content: texto,
-                        senderId: userEmail,
-                        isImage: false,
-                        timestamp: serverTimestamp()
-                    });
-                    inputMsg.value = '';
-                    atualizarIconeInput();
-                } catch (e) {
-                    console.error("Mensagem recusada:", e);
-                    alert("Erro ao enviar. Verifique as regras do Firebase.");
-                }
-            } else {
-                const agora = new Date();
-                const horaStr = agora.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-                contatoAtivo.mensagens.push({
-                    tipo: "texto",
-                    de: "me",
-                    texto: texto,
-                    hora: horaStr
-                });
-
-                contatoAtivo.ultimaMsg = texto;
-                contatoAtivo.hora = "Agora";
-
-                inputMsg.value = '';
-                atualizarIconeInput();
-                persistirContatos();
-                renderContatos();
-                renderMensagens();
-            }
-        }
-
-        window.enviarMidiaSimulada = async function(tipo) {
-            const activeContact = contatos.find(c => c.id === contatoAtivoId);
-            if (!activeContact) return;
-
-            tocarSom('enviar');
-            const userEmail = localStorage.getItem('chat_user_email');
-            const horaAtual = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-            if (tipo === 'imagem') {
-                const imgUrl = "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500";
-                if (activeContact.isFirebase) {
-                    await addDoc(messagesCollection, {
-                        content: imgUrl,
-                        senderId: userEmail,
-                        isImage: true,
-                        timestamp: serverTimestamp()
-                    });
-                } else {
-                    activeContact.mensagens.push({
-                        tipo: "imagem",
-                        de: "me",
-                        url: imgUrl,
-                        legenda: "Esboço enviado localmente",
-                        hora: horaAtual
-                    });
-                }
-            } else if (tipo === 'documento') {
-                if (activeContact.isFirebase) {
-                    await addDoc(messagesCollection, {
-                        content: "📄 Documento enviado: Relatorio_Blindado.pdf (1.4 MB)",
-                        senderId: userEmail,
-                        isImage: false,
-                        timestamp: serverTimestamp()
-                    });
-                } else {
-                    activeContact.mensagens.push({
-                        tipo: "documento",
-                        de: "me",
-                        nome: "Relatorio_Blindado.pdf",
-                        tamanho: "1.4 MB",
-                        hora: horaAtual
-                    });
-                }
-            }
-
-            if (!activeContact.isFirebase) {
-                activeContact.ultimaMsg = tipo === 'imagem' ? "📸 Imagem enviada" : "📄 Documento enviado";
-                activeContact.hora = "Agora";
-                persistirContatos();
-                renderContatos();
-                renderMensagens();
-            }
-        }
-
-        // AUTOMACÃO E SIMULAÇÃO DE RESPOSTAS
-        const respostasFicticias = [
-            "Excelente, estarei de olho!",
-            "Tudo resolvido por aqui. E com você?",
-            "Consegue me repassar o contrato final amanhã cedo?",
-            "Acabei de concluir os relatórios do sistema.",
-            "Sem problemas! Vamos conversando por aqui.",
-            "Estou em reunião no momento, respondo assim que puder! 🚀"
-        ];
-
-        window.simularMensagemRecebida = function() {
-            const activeContact = contatos.find(c => c.id === contatoAtivoId);
-            if (!activeContact) return;
-
-            if (activeContact.isFirebase) {
-                alert("A Sala Ultra Blindada está integrada ao Firebase real! Abra em outra janela anônima para testar o envio em tempo real.");
-                return;
-            }
-
-            const randMsg = respostasFicticias[Math.floor(Math.random() * respostasFicticias.length)];
-            const horaStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-            activeContact.mensagens.push({
-                tipo: "texto",
-                de: "them",
-                texto: randMsg,
-                hora: horaStr
-            });
-
-            activeContact.ultimaMsg = randMsg;
-            activeContact.hora = horaStr;
-
-            tocarSom('receber');
-            mostrarToast(activeContact.nome);
-            triggerNotification(randMsg, activeContact.nome);
-
-            persistirContatos();
-            renderContatos();
-            renderMensagens();
-        }
-
-        // TOASTS E NOTIFICAÇÕES
-        function mostrarToast(remetente) {
-            const toast = document.getElementById('toast-notificacao');
-            document.getElementById('toast-sender').textContent = remetente;
-            toast.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-10');
-            toast.classList.add('opacity-100', 'translate-y-0');
-
-            setTimeout(() => {
-                toast.classList.remove('opacity-100', 'translate-y-0');
-                toast.classList.add('opacity-0', 'pointer-events-none', '-translate-y-10');
-            }, 3000);
-        }
-
-        if ("Notification" in window && Notification.permission !== "granted") {
-            Notification.requestPermission();
-        }
-
-        function triggerNotification(texto, remetente) {
-            const userEmail = localStorage.getItem('chat_user_email') || '';
-            if (document.hidden && remetente !== userEmail && Notification.permission === "granted") {
-                new Notification(`Mensagem de ${remetente.split('@')[0]}`, {
-                    body: texto,
-                    icon: 'https://cdn-icons-png.flaticon.com/512/4712/4712038.png'
-                });
-            }
-        }
-
-        // DINÂMICA DE INPUTS E BOTÕES
-        function atualizarIconeInput() {
-            if (inputMsg.value.trim().length > 0) {
-                actionIcon.className = "fa-solid fa-paper-plane text-lg";
-            } else {
-                actionIcon.className = "fa-solid fa-microphone text-lg";
-            }
-        }
-        inputMsg.addEventListener('input', atualizarIconeInput);
-
-        inputMsg.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                const texto = inputMsg.value.trim();
-                if (texto) enviarSessaoMensagem(texto);
-            }
-        });
-
-        searchInput.addEventListener('input', renderContatos);
-
-        // MONITORAMENTO DE DADOS DO FIREBASE
-        const q = query(messagesCollection, orderBy("timestamp", "asc"));
-        onSnapshot(q, (snapshot) => {
-            const firebaseMsgs = [];
-            snapshot.forEach((doc) => {
-                const data = doc.data();
-                if (!data.timestamp) return;
-
-                firebaseMsgs.push({
-                    tipo: data.isImage ? "imagem" : (data.isAudio ? "audio" : "texto"),
-                    de: data.senderId === localStorage.getItem('chat_user_email') ? "me" : "them",
-                    senderId: data.senderId,
-                    texto: data.isImage ? "" : data.content,
-                    url: data.isImage ? data.content : "",
-                    duracao: data.isAudio ? data.audioLength : "",
-                    legenda: data.isImage ? "Imagem enviada via Firebase" : "",
-                    hora: data.timestamp.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                    timestamp: data.timestamp
-                });
-            });
-
-            const fbContact = contatos.find(c => c.id === 'firebase_blindado');
-            if (fbContact) {
-                fbContact.mensagens = firebaseMsgs;
-                if (firebaseMsgs.length > 0) {
-                    const last = firebaseMsgs[firebaseMsgs.length - 1];
-                    fbContact.ultimaMsg = last.tipo === 'imagem' ? "📸 Imagem enviada" : (last.tipo === 'audio' ? "🎙️ Áudio enviado" : last.texto);
-                    fbContact.hora = last.hora;
-                }
-
-                if (contatoAtivoId === 'firebase_blindado') {
-                    renderMensagens();
-                }
-                renderContatos();
-
-                if (firebaseMsgs.length > 0) {
-                    const lastMsg = firebaseMsgs[firebaseMsgs.length - 1];
-                    const userEmail = localStorage.getItem('chat_user_email');
-                    if (lastMsg.senderId && lastMsg.senderId !== userEmail) {
-                        const diferenca = Date.now() - lastMsg.timestamp.toDate().getTime();
-                        if (diferenca < 4000) { 
-                            tocarSom('receber');
-                            mostrarToast(lastMsg.senderId.split('@')[0]);
-                            triggerNotification(lastMsg.texto || "📸 Imagem", lastMsg.senderId);
-                        }
-                    }
-                }
-            }
-        });
-
-        // SIMULADOR DE CHAMADAS
-        window.iniciarChamada = function(tipo) {
-            const contato = contatos.find(c => c.id === contatoAtivoId);
-            if (!contato) return;
-
-            const modal = document.getElementById('call-modal');
-            const typeLabel = document.getElementById('call-type-label');
-            const contactName = document.getElementById('call-contact-name');
-            const contactPhoto = document.getElementById('call-contact-photo');
-            const callStatus = document.getElementById('call-status');
-            const voicePulse = document.getElementById('voice-pulse');
-            const videoContainer = document.getElementById('video-container');
-            const localVideo = document.getElementById('local-video');
-
-            modal.classList.remove('hidden');
-            typeLabel.textContent = tipo === 'video' ? 'Chamada de vídeo' : 'Chamada de voz';
-            contactName.textContent = contato.nome;
-            contactPhoto.src = contato.foto || 'https://images.unsplash.com/photo-1614680376593-902f74fa0d41?w=150';
-            callStatus.textContent = 'Chamando...';
-
-            isMuted = false;
-            isVideoActive = tipo === 'video';
-            isSpeaker = false;
-            atualizarBotoesChamada();
-
-            iniciarTomChamando();
-            voicePulse.classList.add('animate-pulse-glow');
-
-            callTimer = setTimeout(async () => {
-                pararTomChamando();
-                tocarSom('atender');
-                callStatus.textContent = 'Conectado • 00:00';
-                totalSeconds = 0;
-
-                countInterval = setInterval(() => {
-                    totalSeconds++;
-                    const m = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
-                    const s = String(totalSeconds % 60).padStart(2, '0');
-                    callStatus.textContent = `Conectado • ${m}:${s}`;
-                }, 1000);
-
-                if (tipo === 'video') {
-                    videoContainer.classList.remove('hidden');
-                    localVideo.classList.remove('hidden');
-                    try {
-                        mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-                        localVideo.srcObject = mediaStream;
-                    } catch (e) {
-                        console.warn("Câmera indisponível.");
-                        document.getElementById('video-placeholder').classList.remove('hidden');
-                    }
-                }
-            }, 4000);
-        }
-
-        window.encerrarChamada = function() {
-            pararTomChamando();
-            tocarSom('desligar');
-
-            if (callTimer) clearTimeout(callTimer);
-            if (countInterval) clearInterval(countInterval);
-
-            if (mediaStream) {
-                mediaStream.getTracks().forEach(track => track.stop());
-                mediaStream = null;
-            }
-
-            document.getElementById('call-modal').classList.add('hidden');
-            document.getElementById('video-container').classList.add('hidden');
-            document.getElementById('local-video').classList.add('hidden');
-            document.getElementById('local-video').srcObject = null;
-        }
-
-        window.toggleMute = function() {
-            isMuted = !isMuted;
-            if (mediaStream) {
-                mediaStream.getAudioTracks().forEach(t => t.enabled = !isMuted);
-            }
-            atualizarBotoesChamada();
-        }
-
-        window.toggleLocalVideo = function() {
-            isVideoActive = !isVideoActive;
-            const container = document.getElementById('video-container');
-            const video = document.getElementById('local-video');
-            const placeholder = document.getElementById('video-placeholder');
-
-            if (isVideoActive) {
-                container.classList.remove('hidden');
-                if (mediaStream) {
-                    mediaStream.getVideoTracks().forEach(t => t.enabled = true);
-                    video.classList.remove('hidden');
-                    placeholder.classList.add('hidden');
-                } else {
-                    navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
-                        mediaStream = stream;
-                        video.srcObject = mediaStream;
-                        video.classList.remove('hidden');
-                        placeholder.classList.add('hidden');
-                    }).catch(() => {
-                        placeholder.classList.remove('hidden');
-                    });
-                }
-            } else {
-                if (mediaStream) {
-                    mediaStream.getVideoTracks().forEach(t => t.enabled = false);
-                }
-                video.classList.add('hidden');
-                placeholder.classList.remove('hidden');
-            }
-            atualizarBotoesChamada();
-        }
-
-        window.toggleSpeaker = function() {
-            isSpeaker = !isSpeaker;
-            atualizarBotoesChamada();
-        }
-
-        function atualizarBotoesChamada() {
-            const btnMute = document.getElementById('btn-mute');
-            const btnVid = document.getElementById('btn-video-toggle');
-            const btnSpk = document.getElementById('btn-speaker');
-
-            if (isMuted) {
-                btnMute.className = "w-12 h-12 rounded-full bg-red-500 text-white flex items-center justify-center transition-all shadow-md shadow-red-550/20";
-                document.getElementById('mute-icon').className = "fa-solid fa-microphone-slash text-lg";
-            } else {
-                btnMute.className = "w-12 h-12 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition-all";
-                document.getElementById('mute-icon').className = "fa-solid fa-microphone text-lg";
-            }
-
-            if (isVideoActive) {
-                btnVid.className = "w-12 h-12 rounded-full bg-brand-500 text-white flex items-center justify-center transition-all shadow-md shadow-brand-550/20";
-                document.getElementById('video-icon').className = "fa-solid fa-video text-lg";
-            } else {
-                btnVid.className = "w-12 h-12 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition-all";
-                document.getElementById('video-icon').className = "fa-solid fa-video-slash text-lg";
-            }
-
-            btnSpk.className = isSpeaker 
-                ? "w-12 h-12 rounded-full bg-brand-500 text-white flex items-center justify-center transition-all shadow-md shadow-brand-550/20"
-                : "w-12 h-12 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition-all";
-        }
-
-        // FULLSCREEN
-        window.toggleFullscreen = function() {
+        function toggleFullscreen() {
             if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().catch(e => alert(`Falha ao entrar em tela cheia: ${e.message}`));
-            } else {
+                document.documentElement.requestFullscreen();
+            } else if (document.exitFullscreen) {
                 document.exitFullscreen();
             }
         }
 
-        // INICIALIZADOR
-        window.onload = () => {
-            checkLoginState();
-            
-            const savedWP = localStorage.getItem('chat_wallpaper') || 'classic';
-            setWallpaper(savedWP);
+        function obterHoraAtual() {
+            const data = new Date();
+            return `${String(data.getHours()).padStart(2, '0')}:${String(data.getMinutes()).padStart(2, '0')}`;
+        }
 
-            if (window.innerWidth < 768) {
-                voltarParaLista();
-            }
-        };
+        // Filtro de Contatos na Lista
+        function filtrarContatos() {
+            const query = document.getElementById('search-contacts').value.toLowerCase();
+            const contatos = document.querySelectorAll('#contacts-list > div');
+            contatos.forEach(c => {
+                const nome = c.querySelector('h4').innerText.toLowerCase();
+                if (nome.includes(query)) {
+                    c.style.display = 'flex';
+                } else {
+                    c.style.display = 'none';
+                }
+            });
+        }
 
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 768) {
-                document.getElementById('sidebar').classList.remove('hidden');
-                document.getElementById('chat-window').classList.remove('hidden');
-                document.getElementById('chat-window').classList.add('flex');
-            } else {
-                voltarParaLista();
-            }
-        });
+        // Simulação de Resposta e Notificações (Toast)
+        function simularRespostaAutomatica() {
+            const respostas = [
+                "Perfeito! Vou analisar aqui e te retorno.",
+                "Muito obrigado pelo envio rápido!",
+                "Excelente! Tudo certo.",
+                "Acabei de receber. Obrigado!"
+            ];
+            const resposta = respostas[Math.floor(Math.random() * respostas.length)];
+            const agora = obterHoraAtual();
+
+            setTimeout(() => {
+                const html = `
+                    <div class="flex items-end space-x-2 max-w-[85%] self-start">
+                        <div class="bg-white text-gray-800 p-3 rounded-2xl rounded-bl-none shadow-sm text-sm relative">
+                            <p>${resposta}</p>
+                            <span class="text-[10px] text-gray-400 block text-right mt-1">${agora}</span>
+                        </div>
+                    </div>
+                `;
+                messagesContainer.insertAdjacentHTML('beforeend', html);
+                scrollParaBaixo();
+                
+                // Dispara Toast
+                document.getElementById('toast-sender').innerText = contatoAtivoNome;
+                toast.classList.remove('opacity-0', '-translate-y-10');
+                toast.classList.add('opacity-100', 'translate-y-0');
+
+                setTimeout(() => {
+                    toast.classList.remove('opacity-100', 'translate-y-0');
+                    toast.classList.add('opacity-0', '-translate-y-10');
+                }, 3000);
+
+            }, 1500);
+        }
+
+        // Funções adicionais de Controle de Chamada
+        function toggleMute() {
+            const icon = document.getElementById('mute-icon');
+            icon.classList.toggle('fa-microphone');
+            icon.classList.toggle('fa-microphone-slash');
+        }
+
+        function toggleSpeaker() {
+            const icon = document.getElementById('speaker-icon');
+            icon.classList.toggle('fa-volume-high');
+            icon.classList.toggle('fa-volume-off');
+        }
     </script>
 </body>
 </html>
