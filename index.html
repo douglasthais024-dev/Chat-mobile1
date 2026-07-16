@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -676,4 +677,555 @@
                 </div>
                 <div class="chat-item" data-id="2">
                     <div class="chat-info">
-                        <div class="chat-info-top"
+                        <div class="chat-info-top">
+                            <span class="email-display">rodrigo.silva<span class="email-domain">@empresa.com</span></span>
+                            <span class="chat-time">11:15</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px; gap: 8px;">
+                            <div class="chat-msg-preview">Enviei o relatório de vendas consolidado.</div>
+                            <span class="unread-badge" id="badge-2">0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-item" data-id="3">
+                    <div class="chat-info">
+                        <div class="chat-info-top">
+                            <span class="email-display">beatriz.costa<span class="email-domain">@empresa.com</span></span>
+                            <span class="chat-time">Ontem</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px; gap: 8px;">
+                            <div class="chat-msg-preview">Gostei bastante do resultado final!</div>
+                            <span class="unread-badge" id="badge-3">0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-item" data-id="4">
+                    <div class="chat-info">
+                        <div class="chat-info-top">
+                            <span class="email-display">lucas.souza<span class="email-domain">@empresa.com</span></span>
+                            <span class="chat-time">Terça</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px; gap: 8px;">
+                            <div class="chat-msg-preview">Marcado para às 15h. Abraços!</div>
+                            <span class="unread-badge" id="badge-4">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ÁREA DE CONVERSA (CHAT) -->
+        <div class="chat-area">
+            <div class="header">
+                <div class="header-left-side">
+                    <i class="fa-solid fa-arrow-left mobile-back-btn" id="backBtn"></i>
+                    <div style="overflow: hidden;">
+                        <span class="header-title" id="chatTitle">contato<span class="email-domain">@empresa.com</span></span>
+                    </div>
+                </div>
+                <div class="header-icons">
+                    <i class="fa-solid fa-sliders" id="wallpaperBtn" title="Papel de parede"></i>
+                </div>
+            </div>
+
+            <div class="chat-window wp-classic" id="chatWindow">
+                <div class="message msg-received">
+                    Olá! Sejam bem-vindos ao workspace de comunicação segura.
+                    <span class="time">14:28</span>
+                </div>
+                <div class="message msg-sent">
+                    Tudo pronto. As credenciais e parâmetros foram configurados.
+                    <span class="time">14:30</span>
+                </div>
+            </div>
+
+            <!-- PAINEL DE EMOJIS EXPANDIDO -->
+            <div class="emoji-panel" id="emojiPanel">
+                <span class="emoji-item">😀</span>
+                <span class="emoji-item">😂</span>
+                <span class="emoji-item">😍</span>
+                <span class="emoji-item">🥰</span>
+                <span class="emoji-item">😎</span>
+                <span class="emoji-item">🧐</span>
+
+                <span class="emoji-item">😅</span>
+                <span class="emoji-item">🤔</span>
+                <span class="emoji-item">🤫</span>
+                <span class="emoji-item">🙄</span>
+                <span class="emoji-item">😬</span>
+                <span class="emoji-item">😭</span>
+
+                <span class="emoji-item">👍</span>
+                <span class="emoji-item">👎</span>
+                <span class="emoji-item">👊</span>
+                <span class="emoji-item">👏</span>
+                <span class="emoji-item">🙌</span>
+                <span class="emoji-item">🤝</span>
+
+                <span class="emoji-item">🚀</span>
+                <span class="emoji-item">💡</span>
+                <span class="emoji-item">💻</span>
+                <span class="emoji-item">📅</span>
+                <span class="emoji-item">⏳</span>
+                <span class="emoji-item">🔒</span>
+
+                <span class="emoji-item">✔️</span>
+                <span class="emoji-item">❌</span>
+                <span class="emoji-item">💯</span>
+                <span class="emoji-item">📢</span>
+                <span class="emoji-item">📌</span>
+                <span class="emoji-item">📁</span>
+
+                <span class="emoji-item">✨</span>
+                <span class="emoji-item">🎉</span>
+                <span class="emoji-item">🔥</span>
+                <span class="emoji-item">🎨</span>
+                <span class="emoji-item">🍕</span>
+                <span class="emoji-item">☕</span>
+
+                <span class="emoji-item">🗣️</span>
+                <span class="emoji-item">👀</span>
+                <span class="emoji-item">🧠</span>
+                <span class="emoji-item">🎯</span>
+                <span class="emoji-item">📈</span>
+                <span class="emoji-item">🏆</span>
+
+                <span class="emoji-item">❓</span>
+                <span class="emoji-item">❗</span>
+                <span class="emoji-item">⚡</span>
+                <span class="emoji-item">🍀</span>
+                <span class="emoji-item">🌎</span>
+                <span class="emoji-item">💤</span>
+            </div>
+
+            <!-- Painel de Temas -->
+            <div class="wallpaper-panel" id="wallpaperPanel">
+                <div class="wp-option" data-theme="wp-classic">
+                    <div class="wp-dot" style="background: #0a0a0c;"></div> Carbono
+                </div>
+                <div class="wp-option" data-theme="wp-dark">
+                    <div class="wp-dot" style="background: #000000; border: 1px solid var(--border-subtle);"></div> Escuro Puro
+                </div>
+                <div class="wp-option" data-theme="wp-sunset">
+                    <div class="wp-dot" style="background: linear-gradient(135deg, #12091a, #000000);"></div> Nebulosa
+                </div>
+                <div class="wp-option" data-theme="wp-forest">
+                    <div class="wp-dot" style="background: linear-gradient(135deg, #05140f, #000000);"></div> Cyber Forest
+                </div>
+                <div class="wp-option" data-theme="wp-neon">
+                    <div class="wp-dot" style="background: radial-gradient(#0a111a, #000000);"></div> Matrix
+                </div>
+            </div>
+
+            <!-- Rodapé de envio -->
+            <div class="chat-footer">
+                <div class="footer-icons">
+                    <i class="fa-regular fa-face-smile" id="emojiBtn" title="Emojis"></i>
+                    <i class="fa-solid fa-paperclip" title="Anexo"></i>
+                </div>
+                <div class="input-wrapper">
+                    <textarea class="chat-input" id="chatInput" placeholder="Digite uma mensagem..." rows="1"></textarea>
+                </div>
+                <button class="btn-send" id="sendBtn">
+                    <i class="fa-solid fa-microphone" id="sendIcon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- MODAL CONFIGURAÇÃO IDENTIDADE -->
+        <div class="modal-overlay" id="modalOverlay">
+            <div class="identity-card">
+                <h3>Minha Identidade</h3>
+                <p>Configure o seu e-mail de exibição no workspace.</p>
+                
+                <div class="input-group">
+                    <label for="userNameInput">E-mail de Trabalho</label>
+                    <input type="email" id="userNameInput" placeholder="nome@empresa.com" value="usuario@email.com">
+                </div>
+
+                <button class="btn-action" id="saveIdentityBtn">Salvar Alterações</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- INTERAÇÕES -->
+    <script>
+        const app = document.getElementById('app');
+        const chatItems = document.querySelectorAll('.chat-item');
+        const backBtn = document.getElementById('backBtn');
+        const chatTitle = document.getElementById('chatTitle');
+        const chatWindow = document.getElementById('chatWindow');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const sendIcon = document.getElementById('sendIcon');
+        const searchInput = document.getElementById('searchInput');
+
+        // Temas & Emojis
+        const wallpaperBtn = document.getElementById('wallpaperBtn');
+        const wallpaperPanel = document.getElementById('wallpaperPanel');
+        const wpOptions = document.querySelectorAll('.wp-option');
+        const emojiBtn = document.getElementById('emojiBtn');
+        const emojiPanel = document.getElementById('emojiPanel');
+        const emojiItems = document.querySelectorAll('.emoji-item');
+
+        // Modal Config
+        const myProfileTrigger = document.getElementById('myProfileTrigger');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const saveIdentityBtn = document.getElementById('saveIdentityBtn');
+        const userNameInput = document.getElementById('userNameInput');
+        const myDisplayName = document.getElementById('myDisplayName');
+
+        // Container de Notificação
+        const toastContainer = document.getElementById('toastContainer');
+
+        // Histórico de Mensagens Mock
+        const chatHistoryMock = {
+            1: [
+                { sender: 'received', text: 'Olá! Você viu a nova proposta do projeto?', time: '14:20' },
+                { sender: 'sent', text: 'Vi sim! Ficou com uma estrutura excelente.', time: '14:25' },
+                { sender: 'received', text: 'Vamos fechar os detalhes do design amanhã?', time: '14:32' }
+            ],
+            2: [
+                { sender: 'received', text: 'Tudo pronto para nossa reunião de fechamento?', time: '11:10' },
+                { sender: 'received', text: 'Enviei o relatório de vendas consolidado.', time: '11:15' }
+            ],
+            3: [
+                { sender: 'received', text: 'Ficou muito legal a interface nova!', time: 'Ontem' },
+                { sender: 'sent', text: 'Que ótimo que curtiu!', time: 'Ontem' },
+                { sender: 'received', text: 'Gostei bastante do resultado final!', time: 'Ontem' }
+            ],
+            4: [
+                { sender: 'received', text: 'Podemos marcar no horário combinado?', time: 'Terça' },
+                { sender: 'sent', text: 'Perfeito, agendado.', time: 'Terça' },
+                { sender: 'received', text: 'Marcado para às 15h. Abraços!', time: 'Terça' }
+            ]
+        };
+
+        // Estado das Mensagens Não Lidas
+        let unreadCounts = {
+            1: 0,
+            2: 0,
+            3: 1, // Beatriz começa com 1 não lida
+            4: 2  // Lucas começa com 2 não lidas
+        };
+
+        let activeChatId = null;
+
+        // Gerador de Som de Notificação Premium (Web Audio API)
+        function playNotificationSound() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Primeiro Bipe (Mais Agudo)
+                const osc1 = audioCtx.createOscillator();
+                const gain1 = audioCtx.createGain();
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(880, audioCtx.currentTime); // Nota Lá (A5)
+                gain1.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                gain1.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.12);
+                osc1.connect(gain1);
+                gain1.connect(audioCtx.destination);
+                osc1.start();
+                osc1.stop(audioCtx.currentTime + 0.12);
+                
+                // Segundo Bipe (Mais suave e rápido, simulando chirp tech)
+                setTimeout(() => {
+                    const osc2 = audioCtx.createOscillator();
+                    const gain2 = audioCtx.createGain();
+                    osc2.type = 'sine';
+                    osc2.frequency.setValueAtTime(1100, audioCtx.currentTime); 
+                    gain2.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                    gain2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+                    osc2.connect(gain2);
+                    gain2.connect(audioCtx.destination);
+                    osc2.start();
+                    osc2.stop(audioCtx.currentTime + 0.1);
+                }, 75);
+            } catch (e) {
+                // Navegador bloqueia áudio sem interação prévia
+            }
+        }
+
+        // Atualizar visualização do Badge de Não Lidas na lista
+        function updateBadgeUI(chatId) {
+            const badge = document.getElementById(`badge-${chatId}`);
+            if (badge) {
+                const count = unreadCounts[chatId] || 0;
+                if (count > 0) {
+                    badge.textContent = count;
+                    badge.style.display = 'flex';
+                } else {
+                    badge.style.display = 'none';
+                }
+            }
+        }
+
+        // Inicializa badges iniciais na montagem
+        Object.keys(unreadCounts).forEach(id => updateBadgeUI(id));
+
+        // Formatação visual moderna para o domínio dos e-mails
+        function formatEmailHTML(email) {
+            const parts = email.split('@');
+            if(parts.length === 2) {
+                return `${parts[0]}<span class="email-domain">@${parts[1]}</span>`;
+            }
+            return email;
+        }
+
+        // Selecionar conversa
+        chatItems.forEach(item => {
+            item.addEventListener('click', () => {
+                chatItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+
+                const id = item.getAttribute('data-id');
+                activeChatId = id;
+                
+                // Zera e atualiza notificações não lidas desta conversa
+                unreadCounts[id] = 0;
+                updateBadgeUI(id);
+
+                // Reconstroi o e-mail completo
+                const userPart = item.querySelector('.email-display').childNodes[0].textContent;
+                const domainPart = item.querySelector('.email-domain').textContent;
+                const fullEmail = userPart + domainPart;
+                
+                chatTitle.innerHTML = formatEmailHTML(fullEmail);
+
+                app.classList.add('chat-open');
+                loadMessages(id);
+            });
+        });
+
+        backBtn.addEventListener('click', () => {
+            app.classList.remove('chat-open');
+            chatItems.forEach(i => i.classList.remove('active'));
+            activeChatId = null;
+        });
+
+        function loadMessages(id) {
+            chatWindow.innerHTML = '';
+            const history = chatHistoryMock[id] || [];
+            history.forEach(msg => {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `message msg-${msg.sender}`;
+                msgDiv.innerHTML = `${msg.text}<span class="time">${msg.time}</span>`;
+                chatWindow.appendChild(msgDiv);
+            });
+            scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        // Alterar de Mic para Enviar ao digitar
+        chatInput.addEventListener('input', () => {
+            if (chatInput.value.trim().length > 0) {
+                sendIcon.className = 'fa-solid fa-paper-plane';
+            } else {
+                sendIcon.className = 'fa-solid fa-microphone';
+            }
+            chatInput.style.height = 'auto';
+            chatInput.style.height = chatInput.scrollHeight + 'px';
+        });
+
+        // Enviar mensagem
+        function sendMessage() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+
+            const timeNow = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+            
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'message msg-sent';
+            msgDiv.innerHTML = `${text}<span class="time">${timeNow}</span>`;
+            chatWindow.appendChild(msgDiv);
+
+            if (activeChatId) {
+                chatHistoryMock[activeChatId].push({ sender: 'sent', text: text, time: timeNow });
+                const activeItem = document.querySelector(`.chat-item[data-id="${activeChatId}"] .chat-msg-preview`);
+                if (activeItem) activeItem.textContent = text;
+            }
+
+            chatInput.value = '';
+            chatInput.style.height = 'auto';
+            sendIcon.className = 'fa-solid fa-microphone';
+            scrollToBottom();
+        }
+
+        sendBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // Filtrar e-mails na busca
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            chatItems.forEach(item => {
+                const userPart = item.querySelector('.email-display').childNodes[0].textContent;
+                const domainPart = item.querySelector('.email-domain').textContent;
+                const fullEmail = (userPart + domainPart).toLowerCase();
+                if (fullEmail.includes(term)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Gerenciamento de Tema
+        wallpaperBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            wallpaperPanel.classList.toggle('show');
+            emojiPanel.classList.remove('show');
+        });
+
+        wpOptions.forEach(opt => {
+            opt.addEventListener('click', () => {
+                const theme = opt.getAttribute('data-theme');
+                chatWindow.className = `chat-window ${theme}`;
+                wallpaperPanel.classList.remove('show');
+            });
+        });
+
+        // Gerenciamento de Emojis
+        emojiBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            emojiPanel.classList.toggle('show');
+            wallpaperPanel.classList.remove('show');
+        });
+
+        emojiItems.forEach(emoji => {
+            emoji.addEventListener('click', () => {
+                chatInput.value += emoji.textContent;
+                sendIcon.className = 'fa-solid fa-paper-plane';
+                chatInput.focus();
+            });
+        });
+
+        // Clicar fora fecha os painéis
+        document.addEventListener('click', (e) => {
+            if (!emojiPanel.contains(e.target) && e.target !== emojiBtn) {
+                emojiPanel.classList.remove('show');
+            }
+            if (!wallpaperPanel.contains(e.target) && e.target !== wallpaperBtn) {
+                wallpaperPanel.classList.remove('show');
+            }
+        });
+
+        // Modal de Identidade
+        myProfileTrigger.addEventListener('click', () => {
+            modalOverlay.classList.add('active');
+        });
+
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                modalOverlay.classList.remove('active');
+            }
+        });
+
+        saveIdentityBtn.addEventListener('click', () => {
+            const newEmail = userNameInput.value.trim();
+            if (newEmail) {
+                myDisplayName.innerHTML = formatEmailHTML(newEmail);
+            }
+            modalOverlay.classList.remove('active');
+        });
+
+
+        // ================= SISTEMA DE NOTIFICAÇÕES EM TEMPO REAL =================
+
+        // Banco de mensagens prontas para simular conversas ativas
+        const messageTemplates = [
+            { id: 1, email: "clara.mendes@empresa.com", text: "Acabei de validar as alterações na branch principal! 🚀" },
+            { id: 2, email: "rodrigo.silva@empresa.com", text: "Você conseguiu validar o relatório financeiro de ontem? 📈" },
+            { id: 3, email: "beatriz.costa@empresa.com", text: "Enviei os novos protótipos de tela lá no Figma. Dá um look! 🎨" },
+            { id: 4, email: "lucas.souza@empresa.com", text: "Podemos antecipar nossa reunião para as 14h? Fica melhor para ti?" }
+        ];
+
+        // Dispara uma notificação flutuante (Toast)
+        function showToastNotification(chatId, senderEmail, text) {
+            const toast = document.createElement('div');
+            toast.className = 'toast-notification';
+            toast.innerHTML = `
+                <i class="fa-solid fa-bell" style="color: var(--primary); font-size: 15px;"></i>
+                <div style="flex: 1; overflow: hidden; display: flex; flex-direction: column; gap: 1px;">
+                    <span style="font-size: 12.5px; font-weight: 600; color: white;">Nova mensagem</span>
+                    <span style="font-size: 11.5px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <strong>${senderEmail.split('@')[0]}:</strong> ${text}
+                    </span>
+                </div>
+            `;
+
+            // Clicar no toast leva o usuário direto para aquela conversa
+            toast.addEventListener('click', () => {
+                const targetItem = document.querySelector(`.chat-item[data-id="${chatId}"]`);
+                if (targetItem) targetItem.click();
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            });
+
+            toastContainer.appendChild(toast);
+
+            // Animação de entrada
+            setTimeout(() => toast.classList.add('show'), 50);
+
+            // Som de Notificação
+            playNotificationSound();
+
+            // Desaparecer automaticamente após 4 segundos
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.remove(), 300);
+                }
+            }, 4000);
+        }
+
+        // Função que simula o recebimento de mensagens em tempo real
+        function simulateIncomingMessage() {
+            // Seleciona um contato aleatório da lista de templates
+            const template = messageTemplates[Math.floor(Math.random() * messageTemplates.length)];
+            const timeNow = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+            // Salva a nova mensagem no banco de simulação
+            chatHistoryMock[template.id].push({
+                sender: 'received',
+                text: template.text,
+                time: timeNow
+            });
+
+            // Atualiza os componentes visuais na sidebar
+            const previewElement = document.querySelector(`.chat-item[data-id="${template.id}"] .chat-msg-preview`);
+            const timeElement = document.querySelector(`.chat-item[data-id="${template.id}"] .chat-time`);
+            if (previewElement) previewElement.textContent = template.text;
+            if (timeElement) timeElement.textContent = timeNow;
+
+            // Tratamento caso a conversa já esteja aberta ou fechada
+            if (activeChatId == template.id) {
+                // Se a conversa já estiver aberta, apenas adiciona direto na tela
+                const msgDiv = document.createElement('div');
+                msgDiv.className = 'message msg-received';
+                msgDiv.innerHTML = `${template.text}<span class="time">${timeNow}</span>`;
+                chatWindow.appendChild(msgDiv);
+                scrollToBottom();
+                playNotificationSound(); // Bipe sutil de recepção direta
+            } else {
+                // Se a conversa estiver fechada, incrementa não lidas
+                unreadCounts[template.id] = (unreadCounts[template.id] || 0) + 1;
+                updateBadgeUI(template.id);
+                // Exibe o Toast moderno no topo
+                showToastNotification(template.id, template.email, template.text);
+            }
+        }
+
+        // Loop de simulação: Chega uma mensagem nova a cada 12 segundos
+        setInterval(simulateIncomingMessage, 12000);
+    </script>
+</body>
+</html>
