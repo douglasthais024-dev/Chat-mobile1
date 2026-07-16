@@ -70,6 +70,11 @@
             border-right: 1px solid var(--border-glass);
         }
 
+        /* Quando o chat estiver ativo, move a sidebar para fora no mobile */
+        .app-container.chat-open .sidebar {
+            transform: translateX(-100%);
+        }
+
         /* Cabeçalhos */
         .header {
             height: 65px;
@@ -86,30 +91,43 @@
         }
 
         .header-title {
-            font-size: 19px;
+            font-size: 16px;
             font-weight: 600;
             letter-spacing: -0.2px;
             color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 180px;
         }
 
         .header-left-side {
             display: flex;
             align-items: center;
             gap: 12px;
+            overflow: hidden;
         }
 
-        .avatar {
+        /* Botão de Perfil (Sem Foto) */
+        .profile-config-btn {
             width: 42px;
             height: 42px;
             border-radius: 50%;
-            object-fit: cover;
+            background: var(--glass);
             border: 2px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
             box-shadow: 0 0 12px var(--primary-glow);
-            transition: transform 0.2s;
+            transition: transform 0.2s, background-color 0.2s;
+            color: var(--primary-light);
+            font-size: 18px;
+            flex-shrink: 0;
         }
-        .avatar:active {
+        .profile-config-btn:active {
             transform: scale(0.95);
+            background-color: var(--glass-active);
         }
 
         .header-icons {
@@ -118,6 +136,7 @@
             color: var(--text-muted);
             font-size: 18px;
             align-items: center;
+            flex-shrink: 0;
         }
 
         .header-icons i {
@@ -177,20 +196,21 @@
 
         .chat-item {
             display: flex;
-            padding: 14px 16px;
+            padding: 16px;
             align-items: center;
             cursor: pointer;
             border-bottom: 1px solid var(--border-glass);
-            transition: background 0.2s;
+            transition: background 0.2s, border-left 0.2s;
+            border-left: 0 solid transparent;
         }
 
         .chat-item:active, .chat-item.active {
             background-color: var(--glass-active);
+            border-left: 4px solid var(--primary-light);
         }
 
         .chat-info {
             flex: 1;
-            margin-left: 14px;
             overflow: hidden;
         }
 
@@ -202,14 +222,20 @@
         }
 
         .chat-info-top h4 {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
             color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 240px;
         }
 
         .chat-time {
             font-size: 11px;
             color: var(--text-muted);
+            flex-shrink: 0;
+            margin-left: 8px;
         }
 
         .chat-msg-preview {
@@ -325,77 +351,6 @@
 
         .msg-sent .time {
             color: rgba(255, 255, 255, 0.65);
-        }
-
-        .message-sender {
-            font-size: 11px;
-            color: var(--primary-light);
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        /* Imagens nos Balões */
-        .message img {
-            max-width: 100%;
-            max-height: 250px;
-            border-radius: 14px;
-            margin-top: 4px;
-            display: block;
-            object-fit: cover;
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-
-        /* Balão de Áudio */
-        .audio-player-bubble {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            min-width: 200px;
-            padding: 4px 0;
-        }
-
-        .audio-play-btn {
-            background: white;
-            color: var(--primary);
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 0.9rem;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-            transition: transform 0.1s ease;
-        }
-        .audio-play-btn:active { transform: scale(0.9); }
-
-        .audio-waveform {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            gap: 3px;
-            height: 24px;
-        }
-
-        .wave-bar {
-            width: 3px;
-            background: rgba(255, 255, 255, 0.25);
-            border-radius: 2px;
-            height: 50%;
-            transform-origin: bottom;
-            transition: transform 0.15s ease;
-        }
-
-        .wave-bar.animating {
-            background: #ffffff;
-            animation: pulseWave 0.6s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
-        }
-
-        @keyframes pulseWave {
-            0% { transform: scaleY(0.3); }
-            100% { transform: scaleY(1.1); }
         }
 
         /* Rodapé de Envio */
@@ -677,11 +632,15 @@
 
     <div class="app-container" id="app">
         
+        <!-- SIDEBAR (Lista de Conversas) -->
         <div class="sidebar">
             <div class="header">
                 <div class="header-left-side">
-                    <img class="avatar" id="userSelfAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=60" alt="Meu Avatar" title="Configurar Identidade">
-                    <span class="header-title">Chat Mobile</span>
+                    <!-- Botão estilizado para modal de identidade -->
+                    <div class="profile-config-btn" id="userSelfAvatar" title="Configurar Identidade">
+                        <i class="fa-solid fa-user-gear"></i>
+                    </div>
+                    <span class="header-title" id="myDisplayName">usuario@email.com</span>
                 </div>
                 <div class="header-icons">
                     <i class="fa-solid fa-circle-notch"></i>
@@ -693,495 +652,22 @@
             <div class="search-container">
                 <div class="search-box">
                     <i class="fa-solid fa-magnifying-glass" style="color: var(--text-muted); font-size: 14px;"></i>
-                    <input type="text" placeholder="Pesquisar conversas...">
+                    <input type="text" id="searchInput" placeholder="Pesquisar e-mails...">
                 </div>
             </div>
 
+            <!-- Lista de contatos exibindo apenas E-mails -->
             <div class="chat-list" id="chatList">
-                <div class="chat-item active" data-name="Maria Silva" data-img="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=60" data-status="online">
-                    <img class="avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=60" alt="Contato">
+                <div class="chat-item" data-id="1">
                     <div class="chat-info">
                         <div class="chat-info-top">
-                            <h4>Maria Silva</h4>
-                            <span class="chat-time">Carregando...</span>
+                            <h4>clara.mendes@empresa.com</h4>
+                            <span class="chat-time">14:32</span>
                         </div>
-                        <p class="chat-msg-preview">Carregando mensagens...</p>
+                        <div class="chat-msg-preview">Vamos fechar os detalhes do design amanhã?</div>
                     </div>
                 </div>
-
-                <div class="chat-item" data-name="Carlos Programador" data-img="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=60" data-status="escrevendo...">
-                    <img class="avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=60" alt="Contato">
+                <div class="chat-item" data-id="2">
                     <div class="chat-info">
                         <div class="chat-info-top">
-                            <h4>Carlos Programador</h4>
-                            <span class="chat-time">Carregando...</span>
-                        </div>
-                        <p class="chat-msg-preview">Carregando mensagens...</p>
-                    </div>
-                </div>
-
-                <div class="chat-item" data-name="Mariana Designer" data-img="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=60" data-status="visto por último às 10h">
-                    <img class="avatar" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=60" alt="Contato">
-                    <div class="chat-info">
-                        <div class="chat-info-top">
-                            <h4>Mariana Designer</h4>
-                            <span class="chat-time">Carregando...</span>
-                        </div>
-                        <p class="chat-msg-preview">Carregando mensagens...</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="chat-area">
-            <div class="header">
-                <div style="display: flex; align-items: center; gap: 6px;">
-                    <i class="fa-solid fa-arrow-left mobile-back-btn" id="backBtn"></i>
-                    <img class="avatar" id="activeAvatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=60" alt="Contato Ativo">
-                    <div>
-                        <h4 id="activeName" style="font-size: 15px; font-weight: 600; color: #fff;">Maria Silva</h4>
-                        <span id="activeStatus" style="font-size: 11px; color: var(--primary-light);">online</span>
-                    </div>
-                </div>
-                <div class="header-icons">
-                    <i class="fa-solid fa-palette" id="wallpaperBtn" title="Papel de Parede"></i>
-                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                </div>
-            </div>
-
-            <div class="wallpaper-panel" id="wallpaperPanel">
-                <div class="wp-option" data-wp="wp-classic"><div class="wp-dot" style="background:#0f172a;"></div>Clássico</div>
-                <div class="wp-option" data-wp="wp-dark"><div class="wp-dot" style="background:#020617;"></div>Escuro</div>
-                <div class="wp-option" data-wp="wp-sunset"><div class="wp-dot" style="background:#451a03;"></div>Sunset</div>
-                <div class="wp-option" data-wp="wp-forest"><div class="wp-dot" style="background:#022c22;"></div>Floresta</div>
-                <div class="wp-option" data-wp="wp-neon"><div class="wp-dot" style="background:#1e1b4b;"></div>Neon</div>
-            </div>
-
-            <div class="chat-window wp-classic" id="chatWindow"></div>
-
-            <div class="emoji-panel" id="emojiPanel">
-                <span class="emoji-item">😀</span><span class="emoji-item">😂</span><span class="emoji-item">🥰</span>
-                <span class="emoji-item">😎</span><span class="emoji-item">👍</span><span class="emoji-item">🔥</span>
-                <span class="emoji-item">🎉</span><span class="emoji-item">👏</span><span class="emoji-item">🚀</span>
-                <span class="emoji-item">❤️</span><span class="emoji-item">😜</span><span class="emoji-item">😭</span>
-            </div>
-
-            <div class="chat-footer">
-                <div class="footer-icons">
-                    <i class="fa-regular fa-face-smile" id="emojiBtn"></i>
-                    <i class="fa-solid fa-camera" id="cameraBtn"></i>
-                    <input type="file" id="photoInput" accept="image/*" style="display: none;">
-                </div>
-                <div class="input-wrapper">
-                    <textarea id="messageInput" class="chat-input" placeholder="Digite uma mensagem" rows="1" autocomplete="off"></textarea>
-                    <div class="recording-container" id="recordingContainer">
-                        <div class="record-dot"></div>
-                        <span id="recordTimer">Gravando 00:00</span>
-                    </div>
-                </div>
-                <button id="sendBtn" class="btn-send">
-                    <i class="fa-solid fa-microphone"></i>
-                </button>
-            </div>
-        </div>
-
-        <div class="modal-overlay" id="identityModal">
-            <div class="identity-card">
-                <h3>Configurações de Perfil</h3>
-                <p>Insira seu nickname ou e-mail para assinar as suas mensagens enviadas.</p>
-                <div class="input-group">
-                    <label>E-mail ou Nick</label>
-                    <input type="text" id="loginEmail" placeholder="exemplo@email.com">
-                </div>
-                <button class="btn-action" id="saveIdentityBtn">Salvar Perfil</button>
-            </div>
-        </div>
-
-    </div>
-
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-        // Configurações do seu banco Firebase do Chat Mobile
-        const firebaseConfig = {
-            apiKey: "AIzaSyA3qtVwG2HfFUzQw-l0VnqQ3r_dx_HwTPo",
-            authDomain: "chat-mobile-d4dea.firebaseapp.com",
-            projectId: "chat-mobile-d4dea",
-            storageBucket: "chat-mobile-d4dea.firebasestorage.app",
-            messagingSenderId: "492131615338",
-            appId: "1:492131615338:web:11162bcbcffd8016b84013"
-        };
-
-        const appFirebase = initializeApp(firebaseConfig);
-        const db = getFirestore(appFirebase);
-        const messagesCollection = collection(db, "messages");
-
-        // Elementos DOM
-        const app = document.getElementById('app');
-        const chatWindow = document.getElementById('chatWindow');
-        const messageInput = document.getElementById('messageInput');
-        const sendBtn = document.getElementById('sendBtn');
-        const backBtn = document.getElementById('backBtn');
-        const chatItems = document.querySelectorAll('.chat-item');
-
-        // Modais e Configs
-        const userSelfAvatar = document.getElementById('userSelfAvatar');
-        const identityModal = document.getElementById('identityModal');
-        const loginEmail = document.getElementById('loginEmail');
-        const saveIdentityBtn = document.getElementById('saveIdentityBtn');
-
-        // Mídias e Recursos Adicionais
-        const emojiBtn = document.getElementById('emojiBtn');
-        const emojiPanel = document.getElementById('emojiPanel');
-        const cameraBtn = document.getElementById('cameraBtn');
-        const photoInput = document.getElementById('photoInput');
-        const wallpaperBtn = document.getElementById('wallpaperBtn');
-        const wallpaperPanel = document.getElementById('wallpaperPanel');
-        const recordingContainer = document.getElementById('recordingContainer');
-        const recordTimer = document.getElementById('recordTimer');
-
-        // Variáveis de Estado
-        let activeNameVal = "Maria Silva";
-        let isRecording = false;
-        let recordInterval;
-        let recordSeconds = 0;
-        let unsubscribeRealtime = null;
-
-        // 🌟 GERENCIADOR DE IDENTIDADE (LOCALSTORAGE AUTOMÁTICO)
-        function getOrInitializeUser() {
-            let userEmail = localStorage.getItem('chat_user_email');
-            if (!userEmail) {
-                const randId = Math.floor(1000 + Math.random() * 9000);
-                userEmail = `Anonimo_${randId}@blindado.com`;
-                localStorage.setItem('chat_user_email', userEmail);
-            }
-            loginEmail.value = userEmail;
-            return userEmail;
-        }
-        let currentUserEmail = getOrInitializeUser();
-
-        // Alternar Visualização do Modal de Perfil
-        userSelfAvatar.addEventListener('click', () => {
-            identityModal.classList.add('active');
-        });
-        identityModal.addEventListener('click', (e) => {
-            if (e.target === identityModal) identityModal.classList.remove('active');
-        });
-        saveIdentityBtn.addEventListener('click', () => {
-            const email = loginEmail.value.trim();
-            if (!email || email.length < 3) {
-                alert("Insira um identificador válido.");
-                return;
-            }
-            localStorage.setItem('chat_user_email', email);
-            currentUserEmail = email;
-            identityModal.classList.remove('active');
-            
-            // Recarrega mensagens após trocar de perfil para recalcular balões de remetente
-            initRealtimeSync(activeNameVal);
-        });
-
-        // ================= SINCRONIZAÇÃO EM TEMPO REAL =================
-        function initRealtimeSync(roomName) {
-            // Cancela escuta anterior se houver
-            if (unsubscribeRealtime) unsubscribeRealtime();
-
-            // Consulta Firestore - ordenando por timestamp
-            const q = query(messagesCollection, orderBy("timestamp", "asc"));
-
-            unsubscribeRealtime = onSnapshot(q, (snapshot) => {
-                chatWindow.innerHTML = '';
-                let lastMsgText = "Nenhuma mensagem enviada";
-                let lastMsgTime = "";
-
-                snapshot.forEach((doc) => {
-                    const data = doc.data();
-                    // Garante que o timestamp existe e pertence à conversa/sala correta
-                    if (!data.timestamp || data.room !== roomName) return;
-
-                    const messageDiv = document.createElement('div');
-                    const isMyMessage = data.senderId === currentUserEmail;
-                    messageDiv.classList.add('message', isMyMessage ? 'msg-sent' : 'msg-received');
-
-                    const messageDate = data.timestamp.toDate();
-                    const timeStr = messageDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                    
-                    // Atualiza previews
-                    lastMsgTime = timeStr;
-                    lastMsgText = data.isImage ? "📷 Imagem" : (data.isAudio ? "🎤 Áudio" : data.content);
-
-                    const senderName = data.senderId.split('@')[0];
-                    const senderTag = !isMyMessage ? `<span class="message-sender">${senderName}</span>` : '';
-
-                    if (data.isImage) {
-                        messageDiv.innerHTML = `${senderTag}<img src="${data.content}" alt="Imagem"><span class="time">${timeStr}</span>`;
-                    } else if (data.isAudio) {
-                        messageDiv.innerHTML = `
-                            ${senderTag}
-                            <div class="audio-player-bubble">
-                                <button class="audio-play-btn">▶</button>
-                                <div class="audio-waveform">
-                                    ${Array(14).fill().map(() => `<div class="wave-bar" style="transform: scaleY(${0.3 + Math.random() * 0.7})"></div>`).join('')}
-                                </div>
-                                <span style="font-size: 0.75rem; opacity: 0.9; white-space: nowrap; font-weight:600;">${data.content}</span>
-                            </div>
-                            <span class="time">${timeStr}</span>
-                        `;
-
-                        const playBtn = messageDiv.querySelector('.audio-play-btn');
-                        const waveBars = messageDiv.querySelectorAll('.wave-bar');
-                        
-                        playBtn.addEventListener('click', () => {
-                            if (playBtn.innerHTML === '▶') {
-                                playBtn.innerHTML = '⏸';
-                                waveBars.forEach(bar => {
-                                    bar.classList.add('animating');
-                                    bar.style.animationDelay = `${Math.random() * 0.4}s`;
-                                });
-                            } else {
-                                playBtn.innerHTML = '▶';
-                                waveBars.forEach(bar => bar.classList.remove('animating'));
-                            }
-                        });
-                    } else {
-                        messageDiv.innerHTML = `${senderTag}${data.content}<span class="time">${timeStr}</span>`;
-                    }
-
-                    chatWindow.appendChild(messageDiv);
-                });
-
-                // Rolar automaticamente para o fim do chat
-                chatWindow.scrollTop = chatWindow.scrollHeight;
-
-                // Atualizar o item da lista de contatos lateral
-                updateSidebarPreview(roomName, lastMsgText, lastMsgTime);
-            });
-        }
-
-        // Atualiza a visualização da última mensagem na barra lateral
-        function updateSidebarPreview(roomName, content, time) {
-            chatItems.forEach(item => {
-                if (item.getAttribute('data-name') === roomName) {
-                    const previewEl = item.querySelector('.chat-msg-preview');
-                    const timeEl = item.querySelector('.chat-time');
-                    if (previewEl) previewEl.textContent = content;
-                    if (timeEl && time) timeEl.textContent = time;
-                }
-            });
-        }
-
-        // ================= CHAT SELECTION & NAVIGATION =================
-        chatItems.forEach(item => {
-            item.addEventListener('click', () => {
-                chatItems.forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
-
-                // Carrega dados dinâmicos
-                activeNameVal = item.getAttribute('data-name');
-                const img = item.getAttribute('data-img');
-                const status = item.getAttribute('data-status');
-
-                document.getElementById('activeName').textContent = activeNameVal;
-                document.getElementById('activeAvatar').src = img;
-                document.getElementById('activeStatus').textContent = status;
-
-                // Transição da janela
-                app.classList.add('chat-open');
-
-                // Carrega mensagens em tempo real da sala selecionada
-                initRealtimeSync(activeNameVal);
-            });
-        });
-
-        // Inicializa a escuta para o primeiro contato (padrão)
-        initRealtimeSync(activeNameVal);
-
-        // Voltar na navegação lateral (mobile)
-        backBtn.addEventListener('click', () => {
-            app.classList.remove('chat-open');
-        });
-
-        // ================= ENVIO DE MENSAGENS E ACÕES =================
-        async function handleSendMessage() {
-            const text = messageInput.value.trim();
-
-            if (text === '') {
-                // Se estiver sem texto, funciona como Gravador de Áudio
-                if (!isRecording) {
-                    startRecording();
-                } else {
-                    await stopAndSendRecording();
-                }
-                return;
-            }
-
-            if (text.length > 1000) return;
-            messageInput.value = '';
-            messageInput.style.height = 'auto';
-            toggleSendIcon();
-
-            try {
-                await addDoc(messagesCollection, {
-                    content: text,
-                    senderId: currentUserEmail,
-                    room: activeNameVal, // Vincula à sala de conversa ativa
-                    isImage: false,
-                    isAudio: false,
-                    timestamp: serverTimestamp()
-                });
-            } catch (error) {
-                console.error("Erro ao enviar mensagem:", error);
-            }
-        }
-
-        // ================= CONTROLE DE GRAVAÇÃO (MOCK) =================
-        function startRecording() {
-            isRecording = true;
-            messageInput.style.display = 'none';
-            recordingContainer.style.display = 'flex';
-            sendBtn.innerHTML = '<i class="fa-solid fa-square" style="color: #ef4444;"></i>';
-            
-            recordSeconds = 0;
-            recordInterval = setInterval(() => {
-                recordSeconds++;
-                const mins = String(Math.floor(recordSeconds / 60)).padStart(2, '0');
-                const secs = String(recordSeconds % 60).padStart(2, '0');
-                recordTimer.innerText = `Gravando ${mins}:${secs}`;
-            }, 1000);
-        }
-
-        async function stopAndSendRecording() {
-            isRecording = false;
-            clearInterval(recordInterval);
-            messageInput.style.display = 'block';
-            recordingContainer.style.display = 'none';
-            toggleSendIcon();
-
-            const mins = String(Math.floor(recordSeconds / 60)).padStart(2, '0');
-            const secs = String(recordSeconds % 60).padStart(2, '0');
-            const durationStr = `${mins}:${secs}`;
-
-            try {
-                await addDoc(messagesCollection, {
-                    content: durationStr,
-                    senderId: currentUserEmail,
-                    room: activeNameVal,
-                    isImage: false,
-                    isAudio: true,
-                    timestamp: serverTimestamp()
-                });
-            } catch (error) {
-                console.error("Erro ao enviar áudio:", error);
-            }
-        }
-
-        // ================= ENVIO DE IMAGEM OTIMIZADA =================
-        cameraBtn.addEventListener('click', () => photoInput.click());
-
-        photoInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function (event) {
-                const img = new Image();
-                img.onload = async function() {
-                    const canvas = document.createElement('canvas');
-                    const MAX_WIDTH = 450; 
-                    let width = img.width;
-                    let height = img.height;
-
-                    if (width > MAX_WIDTH) {
-                        height *= MAX_WIDTH / width;
-                        width = MAX_WIDTH;
-                    }
-
-                    canvas.width = width;
-                    canvas.height = height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, width, height);
-
-                    // Compressão Base64 otimizada para o Firestore
-                    const base64Data = canvas.toDataURL('image/jpeg', 0.55);
-
-                    try {
-                        await addDoc(messagesCollection, {
-                            content: base64Data,
-                            senderId: currentUserEmail,
-                            room: activeNameVal,
-                            isImage: true,
-                            isAudio: false,
-                            timestamp: serverTimestamp()
-                        });
-                    } catch (error) {
-                        alert("Erro ao enviar imagem.");
-                    }
-                };
-                img.src = event.target.result;
-            };
-            reader.readAsDataURL(file);
-            photoInput.value = '';
-        });
-
-        // ================= COMPORTAMENTO DO INPUT E ELEMENTOS ADICIONAIS =================
-        messageInput.addEventListener('input', () => {
-            messageInput.style.height = 'auto';
-            messageInput.style.height = messageInput.scrollHeight + 'px';
-            toggleSendIcon();
-        });
-
-        function toggleSendIcon() {
-            if (messageInput.value.trim().length > 0) {
-                sendBtn.innerHTML = '<i class="fa-solid fa-paper-plane" style="color: var(--primary-light);"></i>';
-            } else {
-                sendBtn.innerHTML = '<i class="fa-solid fa-microphone"></i>';
-            }
-        }
-
-        sendBtn.addEventListener('click', handleSendMessage);
-        messageInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                handleSendMessage();
-            }
-        });
-
-        // Painel Emojis
-        emojiBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            emojiPanel.classList.toggle('show');
-        });
-
-        document.querySelectorAll('.emoji-item').forEach(emoji => {
-            emoji.addEventListener('click', () => {
-                messageInput.value += emoji.innerText;
-                toggleSendIcon();
-                messageInput.focus();
-            });
-        });
-
-        // Wallpaper Picker
-        wallpaperBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            wallpaperPanel.classList.toggle('show');
-        });
-
-        document.querySelectorAll('.wp-option').forEach(option => {
-            option.addEventListener('click', () => {
-                const wallpaperClass = option.getAttribute('data-wp');
-                chatWindow.className = `chat-window ${wallpaperClass}`;
-                wallpaperPanel.classList.remove('show');
-            });
-        });
-
-        // Fechar painéis ao clicar fora
-        document.addEventListener('click', () => {
-            emojiPanel.classList.remove('show');
-            wallpaperPanel.classList.remove('show');
-        });
-        emojiPanel.addEventListener('click', (e) => e.stopPropagation());
-        wallpaperPanel.addEventListener('click', (e) => e.stopPropagation());
-    </script>
-</body>
-</html>
+                            <h4>rodrigo.silva@empres
