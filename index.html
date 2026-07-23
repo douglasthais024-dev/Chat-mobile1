@@ -7,7 +7,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Chat Premium Real-Time Completo</title>
+    <title>Chat Premium Real-Time Completo & Privado</title>
     <style>
         :root {
             --bg-gradient-1: linear-gradient(135deg, #121214 0%, #1a1a1e 100%);
@@ -112,7 +112,7 @@
 
         /* Cabeçalho do Perfil */
         .chat-header {
-            padding: 16px;
+            padding: 14px 16px;
             background: rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(10px);
             display: flex;
@@ -125,7 +125,7 @@
         .profile-info {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .profile-img-wrapper {
@@ -134,8 +134,8 @@
         }
 
         .profile-img {
-            width: 45px;
-            height: 45px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid #007bff;
@@ -145,35 +145,56 @@
 
         .profile-detail h4 {
             color: #ffffff;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
+        }
+
+        .profile-subtitle {
+            font-size: 11px;
+            color: #00ff88;
+            display: block;
+            max-width: 130px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .logout-btn {
             background: none;
             border: none;
             color: #ff4d4d;
-            font-size: 12px;
+            font-size: 11px;
             cursor: pointer;
             text-decoration: underline;
-            display: block;
-            margin-top: 2px;
+            display: inline-block;
+            margin-left: 4px;
         }
 
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+        }
+
+        .contacts-btn {
+            background: rgba(0, 123, 255, 0.25);
+            border: 1px solid rgba(0, 123, 255, 0.5);
+            color: #66b2ff;
+            padding: 6px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
         }
 
         .notif-btn {
             background: rgba(255,255,255,0.08);
             border: none;
             color: #ffc107;
-            padding: 6px 10px;
+            padding: 6px 8px;
             border-radius: 12px;
-            font-size: 14px;
+            font-size: 13px;
             cursor: pointer;
         }
 
@@ -182,13 +203,73 @@
             background: rgba(255,255,255,0.08);
             color: #fff;
             border: none;
-            padding: 6px 10px;
+            padding: 6px 8px;
             border-radius: 12px;
-            font-size: 12px;
+            font-size: 11px;
             cursor: pointer;
             outline: none;
         }
         .wallpaper-select option { background: #1a1a1e; }
+
+        /* Modal de Lista de Contatos / Usuários */
+        .contacts-modal {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 10, 12, 0.96);
+            z-index: 50;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .contacts-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            color: #fff;
+        }
+
+        .contacts-list {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .contact-item:hover {
+            background: rgba(0, 123, 255, 0.25);
+        }
+
+        .contact-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .contact-info h5 {
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .contact-info p {
+            color: #b0b0b5;
+            font-size: 11px;
+        }
 
         /* Feed de Mensagens */
         .chat-messages {
@@ -428,6 +509,17 @@
             </div>
         </div>
 
+        <!-- MODAL DE LISTA DE CONTATOS (CONVERSAS PRIVADAS) -->
+        <div class="contacts-modal" id="contacts-modal">
+            <div class="contacts-modal-header">
+                <h3>Suas Conversas Privadas</h3>
+                <button id="close-contacts-btn" style="background:none; border:none; color:#ff4d4d; font-size:16px; cursor:pointer; font-weight:bold;">Fechar ✕</button>
+            </div>
+            <div class="contacts-list" id="contacts-list">
+                <!-- Lista de usuários carregada dinamicamente -->
+            </div>
+        </div>
+
         <!-- Topo / Perfil -->
         <div class="chat-header">
             <div class="profile-info">
@@ -437,12 +529,14 @@
                 </div>
                 <div class="profile-detail">
                     <h4 id="profile-name">Carregando...</h4>
-                    <button class="logout-btn" id="logout-btn">Sair da Conta</button>
+                    <span class="profile-subtitle" id="active-chat-subtitle">Escolha um contato</span>
+                    <button class="logout-btn" id="logout-btn">Sair</button>
                 </div>
             </div>
             
             <div class="header-actions">
-                <button class="notif-btn" id="enable-notif-btn" title="Ativar Notificações no Celular">🔔</button>
+                <button class="contacts-btn" id="open-contacts-btn" title="Escolher com quem conversar">👥 Contatos</button>
+                <button class="notif-btn" id="enable-notif-btn" title="Ativar Notificações no Visor do Celular">🔔</button>
                 <select class="wallpaper-select" id="wallpaper-selector">
                     <option value="1">Noir Elegance</option>
                     <option value="2">Deep Ocean</option>
@@ -484,7 +578,7 @@
             </div>
 
             <div class="input-row">
-                <input type="text" id="msg-input" placeholder="Digite uma mensagem..." onkeypress="checkEnter(event)">
+                <input type="text" id="msg-input" placeholder="Selecione um contato em '👥 Contatos'..." onkeypress="checkEnter(event)">
                 <button id="send-btn">Enviar</button>
             </div>
         </div>
@@ -494,7 +588,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, deleteDoc, doc, setDoc, getDocs, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
         const firebaseConfig = {
@@ -512,12 +606,13 @@
         const storage = getStorage(app);
 
         let usuarioAtual = null;
+        let contatoAtivo = null; 
+        let chatIdAtual = null;  
         let isScreenLoginMode = true;
-        let carregamentoInicial = true;
         let audioCtxInstance = null;
         let swRegistration = null;
 
-        // ---------------- SERVICE WORKER PARA NOTIFICAÇÃO NO VISOR DO CELULAR ----------------
+        // ---------------- SERVICE WORKER PARA NOTIFICAÇÕES NO VISOR ----------------
         if ('serviceWorker' in navigator) {
             const swCode = `
                 self.addEventListener('install', function(e) { self.skipWaiting(); });
@@ -536,7 +631,7 @@
             const swUrl = URL.createObjectURL(blob);
             navigator.serviceWorker.register(swUrl).then(reg => {
                 swRegistration = reg;
-            }).catch(err => console.log("Service Worker registrado para background."));
+            }).catch(err => console.log("Service Worker ativo."));
         }
 
         // Elementos DOM
@@ -547,6 +642,12 @@
         const authPrimaryBtn = document.getElementById('auth-primary-btn');
         const authToggleLink = document.getElementById('auth-toggle-link');
         
+        const contactsModal = document.getElementById('contacts-modal');
+        const contactsList = document.getElementById('contacts-list');
+        const openContactsBtn = document.getElementById('open-contacts-btn');
+        const closeContactsBtn = document.getElementById('close-contacts-btn');
+        const activeChatSubtitle = document.getElementById('active-chat-subtitle');
+
         const chatMessages = document.getElementById('chat-messages');
         const msgInput = document.getElementById('msg-input');
         const encryptCheck = document.getElementById('encrypt-check');
@@ -559,8 +660,8 @@
 
         let rawSelectedFile = null;
         let unsubscribeSnapshot = null;
+        let unsubscribeGlobalNotif = null;
 
-        // Ativar áudio na primeira interação do usuário
         window.addEventListener('click', () => {
             if (!audioCtxInstance) {
                 const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -626,7 +727,7 @@
 
         enableNotifBtn.onclick = () => {
             pedirPermissaoNotificacao();
-            alert("Notificações ativadas! Você receberá alertas no visor quando uma nova mensagem chegar.");
+            alert("Notificações ativadas! As mensagens aparecerão no topo do seu celular mesmo fora do chat.");
         };
 
         function tocarSomNotificacao(tipo = 'recebida') {
@@ -661,11 +762,10 @@
                     osc.stop(audioCtxInstance.currentTime + 0.25);
                 }
             } catch (e) {
-                console.log("Aguardando toque para emitir áudio.");
+                console.log("Aguardando toque para emitir som.");
             }
         }
 
-        // Emitir Notificação no Visor/Barra de Notificações do Celular
         function emitirNotificacaoRecebida(titulo, corpo) {
             tocarSomNotificacao('recebida');
 
@@ -674,10 +774,10 @@
                     body: corpo,
                     icon: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop',
                     badge: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop',
-                    vibrate: [300, 100, 300], // Vibração do celular
-                    tag: 'chat-mensagem-nova',
+                    vibrate: [300, 100, 300, 100, 300],
+                    tag: 'chat-privado-notif',
                     renotify: true,
-                    requireInteraction: true // Mantém no visor até o usuário clicar
+                    requireInteraction: true 
                 };
 
                 if (swRegistration && swRegistration.showNotification) {
@@ -686,6 +786,70 @@
                     new Notification(titulo, opcoesNotificacao);
                 }
             }
+        }
+
+        // ---------------- CONTATOS E SALAS PRIVADAS ----------------
+        async function salvarPerfilNoFirestore(user) {
+            const name = localStorage.getItem('profile_name_' + user.uid) || user.email.split('@')[0];
+            const avatar = localStorage.getItem('profile_avatar_' + user.uid) || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop';
+            
+            await setDoc(doc(db, "usuarios", user.uid), {
+                uid: user.uid,
+                email: user.email,
+                name: name,
+                avatar: avatar,
+                lastSeen: serverTimestamp()
+            }, { merge: true });
+        }
+
+        openContactsBtn.onclick = async () => {
+            contactsModal.style.display = 'flex';
+            contactsList.innerHTML = '<p style="color:#aaa; text-align:center; padding:20px;">Carregando usuários...</p>';
+            
+            try {
+                const querySnapshot = await getDocs(collection(db, "usuarios"));
+                contactsList.innerHTML = '';
+
+                let encontrouOutro = false;
+                querySnapshot.forEach((docSnap) => {
+                    const u = docSnap.data();
+                    if (usuarioAtual && u.uid !== usuarioAtual.uid) {
+                        encontrouOutro = true;
+                        const item = document.createElement('div');
+                        item.className = 'contact-item';
+                        item.innerHTML = `
+                            <img src="${u.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop'}" class="contact-avatar">
+                            <div class="contact-info">
+                                <h5>${u.name || u.email}</h5>
+                                <p>${u.email}</p>
+                            </div>
+                        `;
+                        item.onclick = () => selecionarContatoParaConversa(u);
+                        contactsList.appendChild(item);
+                    }
+                });
+
+                if (!encontrouOutro) {
+                    contactsList.innerHTML = '<p style="color:#aaa; text-align:center; padding:20px;">Nenhum outro usuário cadastrado. Peça para alguém se cadastrar e iniciar uma conversa privada!</p>';
+                }
+            } catch(e) {
+                contactsList.innerHTML = '<p style="color:#ff4d4d; text-align:center; padding:20px;">Erro ao carregar lista de contatos.</p>';
+            }
+        };
+
+        closeContactsBtn.onclick = () => contactsModal.style.display = 'none';
+
+        function selecionarContatoParaConversa(contato) {
+            contatoAtivo = contato;
+            contactsModal.style.display = 'none';
+            
+            const ids = [usuarioAtual.uid, contato.uid].sort();
+            chatIdAtual = `${ids[0]}_${ids[1]}`;
+
+            activeChatSubtitle.innerText = `Privado: ${contato.name}`;
+            msgInput.placeholder = `Mensagem privada para ${contato.name}...`;
+
+            iniciarEscutaMensagensPrivadas();
         }
 
         // ---------------- AUTHENTICATION ----------------
@@ -728,7 +892,12 @@
         document.getElementById('logout-btn').onclick = () => {
             signOut(auth).then(() => {
                 if (unsubscribeSnapshot) unsubscribeSnapshot();
+                if (unsubscribeGlobalNotif) unsubscribeGlobalNotif();
                 chatMessages.innerHTML = '';
+                contatoAtivo = null;
+                chatIdAtual = null;
+                activeChatSubtitle.innerText = "Escolha um contato";
+                msgInput.placeholder = "Selecione um contato em '👥 Contatos'...";
             });
         };
 
@@ -743,10 +912,11 @@
                 const avatarSalvo = localStorage.getItem('profile_avatar_' + user.uid);
                 if(avatarSalvo) document.getElementById('avatar-preview').src = avatarSalvo;
                 
+                salvarPerfilNoFirestore(user);
                 authEmail.value = '';
                 authPassword.value = '';
                 pedirPermissaoNotificacao();
-                iniciarEscutaMensagens();
+                iniciarEscutaGlobalDeNotificacoes();
             } else {
                 usuarioAtual = null;
                 authOverlay.style.display = 'flex';
@@ -754,17 +924,10 @@
             }
         });
 
-        // ---------------- EMOJIS LIBERADOS ----------------
-        const listaEmojis = [
-            '😀','😃','😄','😁','😆','😅','😂','🤣','😊','😇','🙂','🙃','😉','😌','😍','🥰','😘','😗','😙','😚','😋','😛','😝','😜','🤪','🤨','🧐','🤓','😎','🤩','🥳','😏','😒','😞','😔','😟','😕','🙁','☹️','😣','😖','😫','😩','🥺','😢','😭','😤','😠','😡','🤬','🤯','😳','🥵','🥶','😱','😨','😰','😥','😓','🤗','🤔','🤭','🤫','🤥','😶','😐','😑','😬','🙄','😯','😦','😧','😮','😲','🥱','😴','🤤','😪','😵','🤐','🥴','🤢','🤮','🤧','😷','🤒','🤕','🤑','🤠','😈','👿','👹','👺','🤡','💩','👻','💀','☠️','👽','👾','🤖','🎃','😺','😸','😹','😻','😼','😽','🙀','😿','😾',
-            '👋','🤚','🖐️','✋','🖖','👌','🤏','✌️','🤞','🤟','🤘','🤙','👈','👉','👆','🖕','👇','☝️','👍','👎','✊','👊','🤛','🤜','👏','🙌','👐','🤲','🤝','🙏','✍️','💅','🤳','💪','🦾','🦵','🦿','🦶','👂','🦻','👃','🧠','🦷','🦴','👀','👁️','舌','👄',
-            '❤️','🧡','💛','💚','💙','💜','🖤','🤍','🤎','💔','❣️','💕','💞','💓','💗','💖','💘','💝','💟','☮️','✝️','☪️','🕉️','☸️','✡️','🔯','🕎','☯️','☦️','🛐','🦘','🐃','🐂','🐄','🐎','🐖','🐏','🐑','🐐','🐕','🐩','🐈','🐓','🦃','🦚','🦜','🐰','🦝','🦨','🦦','🦥','🦔',
-            '🍏','🍎','🍐','🍊','🍋','🍌','🍉','🍇','🍓','🫐','🍒','🍑','🥭','🍍','🥥','🥝','🍅','🍆','🥑','🥦','🥒','🌽','🥕','🧄','🧅','🥔','🥐','🍞','🥖','🥨','🧀','🥚','🍳','🧈','🥞','🧇','🥓','🥩','🍗','🍖','🌭','🍔','🍟','🍕','🫓','sandwich','🥙','🧆','🌮','burrito','🥗','🥘','🥫','🍝','🍜','🍲','🍛','🍣','🍱','🥟','🦪','🍤','🍙','🍚','🍘','🍥','🥠','🥮','🍢','🍡','🍧','🍨','🍦','🥧','🧁','🍰','🎂','🍮','🍭','🍬','🍫','🍿','🍩','🍪','🌰','🥜','🍯','🥛','☕','🍵','🧃','🥤','🧋','🍶','🍺','🍻','🥂','🍷','🥃','🍸','🍹','🧉','🍾','🧊',
-            '⚽','🏀','🏈','⚾','🥎','tennis','🏐','🏉','🥏','🎱','🪀','🏓','badminton','hockey','🏑','🥍','cricket','🪃','🥅','golf','🏹','fishing','🤿','boxing','🥋','🎽','skateboard','roller skate','sled','ice skate','curling stone','ski','⛷️','snowboard','parachute','weightlifting','wrestling','gymnastics','basketball player','fencing','handball','golfing','horse racing','yoga','surfing','swimming','water polo','rowing','climbing','biking','cycling','trophy','1st place','2nd place','3rd place','medal','military medal','rosette','reminder ribbon','ticket','tickets','circus','performing arts','framed picture','art','thread','needle','yarn','knot','microphone','headphones','musical score','keyboard','drum','long drum','saxophone','trumpet','guitar','banjo','violin','game die','chess','darts','bowling','video game','slot machine','puzzle',
-            '🚗','🚕','🚙','🚌','🏣','police car','ambulance','fire engine','minibus','pickup truck','truck','tractor','wheelchair','motorized wheelchair','scooter','motor scooter','bicycle','kick scooter','skateboard','police car light','fire extinguisher','airplane','rocket','flying saucer','helicopter','canoe','sailboat','speed-boat','motorboat','passenger ship','gear','wrench','hammer','tools','magnet','bomb','firecracker','axe','knife','dagger','shield','coffin','crystal ball','microscope','telescope','🇧🇷','🇺🇸','🇪🇸','🇫🇷','🇩🇪','🇮🇹','🇯🇵','🇰🇷','🇨🇳','🇬🇧','🇦🇷'
-        ];
+        // ---------------- EMOJIS ----------------
+        const emojis = ['😀','😃','😄','😁','😆','😅','😂','🤣','😊','😇','🙂','🙃','😉','😌','😍','🥰','😘','😗','😙','😚','😋','😛','😜','🤪','🤨','🧐','🤓','😎','🤩','🥳','😏','😒','😞','😔','😟','😕','🙁','😣','😖','😫','😩','🥺','😢','😭','😤','😠','😡','🤬','🤯','😳','🥵','🥶','😱','😨','😰','😥','😓','🤗','🤔','🤭','🤫','🤥','😶','😐','😑','😬','🙄','😯','😦','😧','😮','😲','🥱','😴','🤤','😪','😵','🤐','🥴','🤢','🤮','🤧','😷','🤒','🤕','🤑','🤠','😈','👿','👹','👺','🤡','💩','👻','💀','☠️','👽','👾','🤖','🎃','😺','😸','😹','😻','😼','😽','🙀','😿','😾','👋','🤚','🖐️','✋','🖖','👌','🤏','✌️','🤞','🤟','🤘','🤙','👈','👉','👆','🖕','👇','☝️','👍','👎','✊','👊','🤛','🤜','👏','🙌','👐','🤲','🤝','🙏','❤️','🧡','💛','💚','💙','💜','🖤','🤍','🤎','💔','❣️','💕','💞','💓','💗','💖','💘','💝','⚽','🏀','🏈','⚾','🥎','🏐','🏉','🎾','🎱','🚗','🚕','🚙','🚌','🚒','🚑','🏎️','🏍️','🛵','🚲','✈️','🚀','🛸','🇧🇷','🇺🇸','🇪🇸','🇫🇷','🇩🇪','🇮🇹','🇯🇵'];
 
-        listaEmojis.forEach(emoji => {
+        emojis.forEach(emoji => {
             const span = document.createElement('span');
             span.innerText = emoji;
             span.onclick = () => { msgInput.value += emoji; msgInput.focus(); };
@@ -783,17 +946,21 @@
                 const r = new FileReader();
                 r.onload = (ev) => {
                     document.getElementById('avatar-preview').src = ev.target.result;
-                    if(usuarioAtual) localStorage.setItem('profile_avatar_' + usuarioAtual.uid, ev.target.result);
+                    if(usuarioAtual) {
+                        localStorage.setItem('profile_avatar_' + usuarioAtual.uid, ev.target.result);
+                        salvarPerfilNoFirestore(usuarioAtual);
+                    }
                 };
                 r.readAsDataURL(f);
             }
         };
 
         document.getElementById('profile-name').onclick = () => {
-            const n = prompt("Digite o novo nome do perfil:");
+            const n = prompt("Digite seu novo nome do perfil:");
             if(n && usuarioAtual) {
                 document.getElementById('profile-name').innerText = n;
                 localStorage.setItem('profile_name_' + usuarioAtual.uid, n);
+                salvarPerfilNoFirestore(usuarioAtual);
             }
         };
 
@@ -922,6 +1089,10 @@
 
         document.getElementById('confirm-file-btn').onclick = () => {
             if (!rawSelectedFile || !usuarioAtual) return;
+            if (!contatoAtivo || !chatIdAtual) {
+                alert("Selecione um contato em '👥 Contatos' primeiro para enviar arquivos!");
+                return;
+            }
 
             const criptografar = encryptCheck.checked;
             let senhaDefinida = "";
@@ -952,6 +1123,9 @@
 
                 addDoc(collection(db, "mensagens"), {
                     autorId: usuarioAtual.uid,
+                    autorNome: localStorage.getItem('profile_name_' + usuarioAtual.uid) || usuarioAtual.email.split('@')[0],
+                    destinatarioId: contatoAtivo.uid,
+                    chatId: chatIdAtual,
                     texto: payloadFinal,
                     isEncrypted: criptografar,
                     createdAt: serverTimestamp()
@@ -971,7 +1145,11 @@
             const texto = msgInput.value.trim();
             if (!texto) return;
             if (!usuarioAtual) {
-                alert("Você precisa estar logado para enviar mensagens!");
+                alert("Você precisa estar logado!");
+                return;
+            }
+            if (!contatoAtivo || !chatIdAtual) {
+                alert("Abra a opção '👥 Contatos' e selecione um usuário para iniciar a conversa privada!");
                 return;
             }
 
@@ -989,6 +1167,9 @@
 
             addDoc(collection(db, "mensagens"), {
                 autorId: usuarioAtual.uid,
+                autorNome: localStorage.getItem('profile_name_' + usuarioAtual.uid) || usuarioAtual.email.split('@')[0],
+                destinatarioId: contatoAtivo.uid,
+                chatId: chatIdAtual,
                 texto: textoFinal,
                 isEncrypted: criptografar,
                 createdAt: serverTimestamp()
@@ -998,7 +1179,7 @@
                 encryptCheck.checked = false;
                 emojiPicker.style.display = 'none';
             }).catch(err => {
-                alert("Bloqueado pelo Firebase! Erro: " + err.message);
+                alert("Erro ao enviar: " + err.message);
             });
         }
 
@@ -1024,37 +1205,33 @@
             }
         }
 
-        function iniciarEscutaMensagens() {
-            carregamentoInicial = true;
-            const q = query(collection(db, "mensagens"), orderBy("createdAt", "asc"));
-            
-            unsubscribeSnapshot = onSnapshot(q, (snapshot) => {
-                
-                if (!carregamentoInicial) {
-                    snapshot.docChanges().forEach((change) => {
-                        if (change.type === "added") {
-                            const dados = change.doc.data();
-                            // Notificação acionada exclusivamente para mensagens recebidas de OUTROS usuários
-                            if (usuarioAtual && dados.autorId !== usuarioAtual.uid) {
-                                let resumo = dados.isEncrypted ? "🔒 Mensagem Criptografada" : dados.texto;
-                                if (resumo.startsWith('{"isRealFile":true')) {
-                                    try {
-                                        const arq = JSON.parse(resumo);
-                                        resumo = arq.fileType && arq.fileType.startsWith('image/') ? "📷 Enviou uma foto" : "📁 Enviou um arquivo";
-                                    } catch(e) {
-                                        resumo = "Enviou uma mídia";
-                                    }
-                                }
-                                emitirNotificacaoRecebida("Nova mensagem recebida", resumo);
-                            }
-                        }
-                    });
-                }
+        // ---------------- ESCUTA DAS MENSAGENS DO CHAT PRIVADO ATIVO ----------------
+        function iniciarEscutaMensagensPrivadas() {
+            if (unsubscribeSnapshot) unsubscribeSnapshot();
+            if (!chatIdAtual) return;
 
+            const q = query(
+                collection(db, "mensagens"), 
+                where("chatId", "==", chatIdAtual)
+            );
+
+            unsubscribeSnapshot = onSnapshot(q, (snapshot) => {
                 chatMessages.innerHTML = '';
-                snapshot.forEach((docSnap) => {
-                    const dados = docSnap.data();
-                    const idMensagem = docSnap.id;
+                
+                // Ordenação segura em tempo de execução no lado do cliente
+                const mensagensDocs = [];
+                snapshot.forEach(docSnap => {
+                    mensagensDocs.push({ id: docSnap.id, ...docSnap.data() });
+                });
+
+                mensagensDocs.sort((a, b) => {
+                    const timeA = a.createdAt ? (a.createdAt.toMillis ? a.createdAt.toMillis() : new Date(a.createdAt).getTime()) : Date.now();
+                    const timeB = b.createdAt ? (b.createdAt.toMillis ? b.createdAt.toMillis() : new Date(b.createdAt).getTime()) : Date.now();
+                    return timeA - timeB;
+                });
+
+                mensagensDocs.forEach((dados) => {
+                    const idMensagem = dados.id;
                     
                     const msgDiv = document.createElement('div');
                     const lado = (usuarioAtual && dados.autorId === usuarioAtual.uid) ? 'right' : 'left';
@@ -1114,9 +1291,39 @@
                 });
 
                 chatMessages.scrollTop = chatMessages.scrollHeight;
-                carregamentoInicial = false;
             }, (error) => {
-                console.error("Erro no Listener: ", error);
+                console.error("Erro na escuta da conversa privada: ", error);
+            });
+        }
+
+        // ---------------- ESCUTA GLOBAL DE NOTIFICAÇÕES (MESMO FORA DO CHAT) ----------------
+        function iniciarEscutaGlobalDeNotificacoes() {
+            if (unsubscribeGlobalNotif) unsubscribeGlobalNotif();
+            if (!usuarioAtual) return;
+
+            let carregandoIniciais = true;
+            const q = query(collection(db, "mensagens"), where("destinatarioId", "==", usuarioAtual.uid));
+
+            unsubscribeGlobalNotif = onSnapshot(q, (snapshot) => {
+                if (!carregandoIniciais) {
+                    snapshot.docChanges().forEach((change) => {
+                        if (change.type === "added") {
+                            const dados = change.doc.data();
+                            let resumo = dados.isEncrypted ? "🔒 Enviou uma mensagem criptografada" : dados.texto;
+                            if (resumo.startsWith('{"isRealFile":true')) {
+                                try {
+                                    const arq = JSON.parse(resumo);
+                                    resumo = arq.fileType && arq.fileType.startsWith('image/') ? "📷 Enviou uma foto" : "📁 Enviou um arquivo";
+                                } catch(e) {
+                                    resumo = "Enviou uma mídia";
+                                }
+                            }
+                            const tituloNotif = `Nova mensagem de ${dados.autorNome || 'Contato'}`;
+                            emitirNotificacaoRecebida(tituloNotif, resumo);
+                        }
+                    });
+                }
+                carregandoIniciais = false;
             });
         }
     </script>
